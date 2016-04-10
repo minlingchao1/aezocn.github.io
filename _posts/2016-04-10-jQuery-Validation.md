@@ -1,3 +1,10 @@
+---
+layout: post
+title:  "jQuery Validation"
+date:   2016-04-10 18:01:54 +0800
+categories: web
+---
+
 ## jQuery Validation Plugin介绍
 
 > - jQuery Validate 插件为表单提供了强大的验证功能，让客户端表单验证变得更简单，同时提供了大量的定制选项，满足应用程序各种需求。该插件捆绑了一套有用的验证方法，包括 URL 和电子邮件验证，同时提供了一个用来编写用户自定义方法的 API。所有的捆绑方法默认使用英语作为错误信息，且已翻译成其他 37 种语言。
@@ -9,12 +16,13 @@
 
 1. 引入JS文件
 
-    ```javascript
-    <script type="text/javascript" src="lib/jquery-1.11.1.js"></script><!-- jquery库文件 -->
-    <script type="text/javascript" src="dist/jquery.validate-1.15.0.js"></script><!-- jquery validate核心库文件 -->
-    <script type="text/javascript" src="dist/additional-methods.js"></script><!-- jquery validate扩展验证方法 -->
-    <script type="text/javascript" src="dist/localization/messages_zh.js"></script><!-- jquery validate错误信息中文提示 -->
-    ```
+  ```html
+  <script type="text/javascript" src="lib/jquery-1.11.1.js"></script><!-- jquery库文件 -->
+  <script type="text/javascript" src="dist/jquery.validate-1.15.0.js"></script><!-- jquery validate核心库文件 -->
+  <script type="text/javascript" src="dist/additional-methods.js"></script><!-- jquery validate扩展验证方法 -->
+  <script type="text/javascript" src="dist/localization/messages_zh.js"></script><!-- jquery validate错误信息中文提示 -->
+  ```
+
 2. 写验证规则
 3. 调用验证方法: `$("#formId").validate();`
 
@@ -351,8 +359,10 @@ ipv4()  |  验证ipv4地址
 
 
 > 原文地址
+> 
 > - [http://www.cnblogs.com/oldinaction/p/5361176.html](http://www.cnblogs.com/oldinaction/p/5361176.html)
 >
 > 参考网址
+>
 > - [http://jqueryvalidation.org/documentation/](http://jqueryvalidation.org/documentation/)
 > - [http://www.runoob.com/jquery/jquery-plugin-validate.html](http://www.runoob.com/jquery/jquery-plugin-validate.html)
