@@ -426,9 +426,10 @@ ipv4()  |  验证ipv4地址
 
 
 > 原文地址
+>
 > - [http://www.cnblogs.com/oldinaction/p/5361176.html](http://www.cnblogs.com/oldinaction/p/5361176.html)
 >
 > 参考网址
-> - [http://jqueryvalidation.org/documentation/](http://jqueryvalidation.org/documentation/)
 >
+> - [http://jqueryvalidation.org/documentation/](http://jqueryvalidation.org/documentation/)
 > - [http://www.runoob.com/jquery/jquery-plugin-validate.html](http://www.runoob.com/jquery/jquery-plugin-validate.html)
