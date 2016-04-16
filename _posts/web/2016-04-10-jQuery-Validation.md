@@ -3,6 +3,7 @@ layout: post
 title:  "jQuery Validation —— Form表单验证插件"
 date:   2016-04-10 18:01:54 +0800
 categories: web
+tag: [jQuery, jQuery-Plugin, metronic]
 ---
 
 ## jQuery Validation Plugin介绍
@@ -10,13 +11,13 @@ categories: web
 > - jQuery Validate 插件为表单提供了强大的验证功能，让客户端表单验证变得更简单，同时提供了大量的定制选项，满足应用程序各种需求。该插件捆绑了一套有用的验证方法，包括 URL 和电子邮件验证，同时提供了一个用来编写用户自定义方法的 API。所有的捆绑方法默认使用英语作为错误信息，且已翻译成其他 37 种语言。
 > - [ jQuery Validate 官网](http://jqueryvalidation.org/)
 > - [GitHub 源码](https://github.com/jzaefferer/jquery-validation)
-> - [本教程源码下载 ( Demo1-Demo4 )](https://github.com/oldinaction/git/tree/master/jQuery-Plugin/jquery-validation)
+> - [本教程源码下载 ( Demo1-Demo5 )](https://github.com/oldinaction/git/tree/master/jQuery-Plugin/jquery-validation)
 
 ## 使用方法
 
 - 引入JS文件
 
-  ```javascript
+  ```html
   <script type="text/javascript" src="lib/jquery-1.11.1.js"></script><!-- jquery库文件 -->
   <script type="text/javascript" src="dist/jquery.validate-1.15.0.js"></script><!-- jquery validate核心库文件 -->
   <script type="text/javascript" src="dist/additional-methods.js"></script><!-- jquery validate扩展验证方法 -->
@@ -429,4 +430,5 @@ ipv4()  |  验证ipv4地址
 >
 > 参考网址
 > - [http://jqueryvalidation.org/documentation/](http://jqueryvalidation.org/documentation/)
+>
 > - [http://www.runoob.com/jquery/jquery-plugin-validate.html](http://www.runoob.com/jquery/jquery-plugin-validate.html)
