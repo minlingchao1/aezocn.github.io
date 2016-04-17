@@ -125,7 +125,7 @@ lineStyles:
 # image tag template
 imageTag: "![{alt}]({src})"
 # use relative path to image from the opened file
-relativeImagePath: false
+relativeImagePath: true
 
 # inline link tag template
 linkInlineTag: "[{text}]({url})"

@@ -80,7 +80,13 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 >
 > ![git运行流程图](http://7xj94a.com1.z0.glb.clouddn.com/blog/image/git%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
-![git运行流程图](http://aezocn.github.io/images/2016/04/git流程图.png)
+![git运行流程图](http://aezocn.github.io/data/images/2016/04/git流程图.png)
+
+![ss](data/images/2016/04/QQ拼音截图未命名.png)
+
+![aaa](/data/images/2016/04/PostalAddress.png)
+
+
 
 ### 与远程仓库同步
 
