@@ -11,11 +11,11 @@ tag: [jekyll]
 [Jekyll](http://jekyllrb.com/)（发音/'dʒiːk əl/，"杰克尔"）是一个静态站点生成器，它会根据网页源码生成静态文件。它提供了模板、变量、插件等功能，所以实际上可以用来编写整个网站。
 
 > Github Pages
+>
 > - github Pages 是 GitHub 提供给用户展示项目主页的静态网页。因此利用 jekyll 搭建网站的话，我们只需要编写好网页文件(或者md文件)上传到 Github 即可（上传的文件会经过 jekyll 程序处理，最终得到我们可以浏览的网页）
+> **[本教程源码下载](https://github.com/oldinaction/Git/tree/master/demo/jekyll)**
 
 ## 利用 jekyll 搭建博客初步
-
-**[源码下载](https://github.com/oldinaction/Git/tree/master/demo/jekyll)**
 
 ### 新建GitHub项目
 

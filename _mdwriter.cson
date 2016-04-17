@@ -122,9 +122,9 @@ lineStyles:
     regexBefore: "(?:-|\\*|\\+|\\d+\\.)\\s*(?:\\[[xX ]])?\\s"
   blockquote: before: "> "
 
-# image tag template
+# image 标签格式（最终生成的绝对路径为：/data/images/{year}/{month}/xx.png）
 imageTag: "![{alt}](/{src})"
-# use relative path to image from the opened file
+# 插入的图片路径不使用相对路径
 relativeImagePath: false
 
 # inline link tag template
