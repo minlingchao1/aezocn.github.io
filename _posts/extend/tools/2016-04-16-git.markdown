@@ -166,7 +166,7 @@ HEAD 的哈希码存放在 .git/refs/heads/master 文件中
 
 #### 创建、切换、删除分支
 
-`git branch`查看分支（`*`代表当前所处的分支）
+`git branch`查看本地分支，`git branch -a`查看本地和运程所有分支（`*`代表当前所处的分支）
 
 `git branch 分支名` 创建一个新的分支。如果此分支和 master 是同一级分支（及在处于 master 时创建的分支），那么他们指向同一个 commit 对象
 
