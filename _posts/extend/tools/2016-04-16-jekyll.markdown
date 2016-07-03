@@ -52,7 +52,7 @@ tag: [jekyll]
   - 回到项目根目录，创建一个`_posts`目录，用于存放blog文章
   - 新建文件 `2016-04-10-hello-world.html`(注意，文件名必须为"年-月-日-文章标题.后缀名"的格式。也支持 markdown 格式)。 在该文件中，填入以下内容：（注意，行首不能有空格）
 
-    ```txt
+    ```Ruby
     ---
     layout: default
     title: 你好，世界
@@ -68,7 +68,7 @@ tag: [jekyll]
 4. 创建首页
   - 回到根目录，创建一个 `index.html` 文件，填入以下内容
 
-    ```txt
+    ```Ruby
     ---
     layout: default
     title: 我的Blog
@@ -152,4 +152,4 @@ pip是一个Python包的安装和管理工具。你会需要它的安装pygments
 >
 > - [2] [http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html](http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html)
 >
-> [3] [http://blog.csdn.net/itmyhome1990/article/details/41982625](http://blog.csdn.net/itmyhome1990/article/details/41982625)
+> - [3] [http://blog.csdn.net/itmyhome1990/article/details/41982625](http://blog.csdn.net/itmyhome1990/article/details/41982625)
