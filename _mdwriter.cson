@@ -16,7 +16,7 @@ siteLocalDir: ""
 # directory to drafts from siteLocalDir
 siteDraftsDir: "_drafts/"
 # directory to posts from siteLocalDir
-sitePostsDir: "_posts/{year}/"
+sitePostsDir: "_posts/extend/"
 # directory to images from siteLocalDir
 siteImagesDir: "data/images/{year}/{month}/"
 
@@ -43,7 +43,7 @@ frontMatter: """
 layout: "{layout}"
 title: "{title}"
 date: "{date}"
-categories: web
+categories: extend
 tags: [, , ]
 ---
 """
