@@ -30,21 +30,7 @@ tag: [jekyll]
 2. 创建模板文件
   - 在项目根目录下，创建一个`_layouts`目录，用于存放模板文件
   - 进入该目录，创建一个`default.html`文件，作为Blog的默认模板。并在该文件中填入以下内容
-
-    ```html
-    <!DOCTYPE html>
-    <html>
-    <head>
-    　　<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    　　<title>{{ page.title }}</title>
-    </head>
-    <body>
-
-    　　{{ content }}
-
-    </body>
-    </html>
-    ```
+  ![创建模版文件](//data/images/2016/07/jekyll-0.png)
 
     > Jekyll使用[Liquid模板语言](https://github.com/shopify/liquid/wiki/liquid-for-designers)，{{ page.title }}表示文章标题，{{ content }}表示文章内容，更多模板变量请参考[官方文档](https://jekyllrb.com/docs/templates/)。
 
