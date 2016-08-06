@@ -18,7 +18,7 @@ siteDraftsDir: "_drafts/"
 # directory to posts from siteLocalDir
 sitePostsDir: "_posts/extend/"
 # directory to images from siteLocalDir
-siteImagesDir: "data/images/{year}/{month}/"
+siteImagesDir: "/data/images/{year}/{month}/"
 
 # URLs to tags/posts/categories JSON files
 # https://github.com/zhuochun/md-writer/wiki/Settings-for-Front-Matters

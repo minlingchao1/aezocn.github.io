@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "jQuery Validation —— Form表单验证插件"
+title:  "jQuery Validation - Form表单验证插件"
 date:   2016-04-10 18:01:54 +0800
 categories: web
 tag: [jQuery, jQuery-Plugin, metronic]
