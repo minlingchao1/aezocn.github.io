@@ -8,7 +8,7 @@ title: 你好，世界
 <p>{{ page.date | date_to_string }}</p>
 
 
-# github-jeykll-markdown书写注意事项
+## github-jeykll-markdown书写注意事项
 
 - md文件中可以使用html标签
 - 标题和字段间要有换行

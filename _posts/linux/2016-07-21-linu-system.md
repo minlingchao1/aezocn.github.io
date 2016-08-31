@@ -6,7 +6,7 @@ categories: extend
 tags: [linux, shell]
 ---
 
-# 系统命令
+## 系统命令
 1. 查看系统信息
   - 查看操作系统版本 `cat /proc/version`
   - 查看内核 `uname -a`
@@ -21,7 +21,7 @@ tags: [linux, shell]
   - `netstat -anp | grep tomcat` 查看含有tomcat相关的进程
 6. 安装程序包 `rpm -ivh 安装包名`
 
-# 文件系统
+## 文件系统
 1. 新建文件夹 **`mkdir` DirName** (或者用绝对路径 `mkdir /usr/local/DirName`)
 2. 删除文件夹
   - 删除文件夹 **`rmdir` DirName** (如果文件夹不为空则无法删除)
@@ -47,6 +47,6 @@ tags: [linux, shell]
   - 查询可执行文件位置 **`which` exeName** (在PATH路径中寻找)
 
 
-# 权限系统
+## 权限系统
 1. 设置文件或目录的所有者 **`chown [-R]` 账号名称 文件或目录**
   - `-R` 递归设置子目录下所有文件和目录
