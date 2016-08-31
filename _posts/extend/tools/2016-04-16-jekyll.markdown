@@ -6,7 +6,7 @@ categories: extend-tools
 tag: [jekyll]
 ---
 
-## jekyll 介绍
+# jekyll 介绍
 
 [Jekyll](http://jekyllrb.com/)（发音/'dʒiːk əl/，"杰克尔"）是一个静态站点生成器，它会根据网页源码生成静态文件。它提供了模板、变量、插件等功能，所以实际上可以用来编写整个网站。
 
@@ -15,24 +15,24 @@ tag: [jekyll]
 > - github Pages 是 GitHub 提供给用户展示项目主页的静态网页。因此利用 jekyll 搭建网站的话，我们只需要编写好网页文件(或者md文件)上传到 Github 即可（上传的文件会经过 jekyll 程序处理，最终得到我们可以浏览的网页）
 > **[本教程源码下载](https://github.com/oldinaction/Git/tree/master/demo/jekyll)**
 
-## 利用 jekyll 搭建博客初步
+# 利用 jekyll 搭建博客初步
 
-### 新建GitHub项目
+## 新建GitHub项目
 
 > 在搭建之前，你必须已经安装了 [git](https://git-scm.com/)，并且有 [github](https://github.com/) 账户。
 
 1. 假如 github 主页是 `https://github.com/oldinaction`, 那么新建一个仓库 (repository), 仓库起名为 `oldinaction.github.io`(一定要为`用户名.github.io`)
 2. 克隆到本地仓库：`git clone https://github.com/oldinaction/oldinaction.github.io.git`
 
-### 在本地仓库创建相关文件
+## 在本地仓库创建相关文件
 
 1. 创建配置文件：在项目根目录下，建立一个名为 `_config.yml` 的文本文件。它是jekyll的设置文件，我们暂时不需要加任何内容，有关配置可参考[官方文档](http://jekyllrb.com/docs/configuration/)。
 2. 创建模板文件
   - 在项目根目录下，创建一个`_layouts`目录，用于存放模板文件
   - 进入该目录，创建一个`default.html`文件，作为Blog的默认模板。并在该文件中填入以下内容
-  ![创建模版文件](/data/images/2016/07/jekyll-0.png)
 
-  > Jekyll使用[Liquid模板语言](https://github.com/shopify/liquid/wiki/liquid-for-designers)，更多模板变量请参考[官方文档](https://jekyllrb.com/docs/templates/)。
+    ![创建模版文件](/data/images/2016/07/jekyll-0.png)
+    > Jekyll使用[Liquid模板语言](https://github.com/shopify/liquid/wiki/liquid-for-designers)，更多模板变量请参考[官方文档](https://jekyllrb.com/docs/templates/)。
 
 3. 创建文章
   - 回到项目根目录，创建一个`_posts`目录，用于存放blog文章
@@ -46,12 +46,12 @@ tag: [jekyll]
   - 回到根目录，创建一个 `index.html` 文件，填入以下内容
   ![创建首页](/data/images/2016/07/jekyll-2.png)
 
-### 提交到 github
+## 提交到 github
 
 1. 添加内容到本地仓库: 先执行命令 `$ git add .` ，再执行命令 `$ git commit -am 'jekyll demo'`
 2. 访问：打开 `http://oldinaction.github.io/` 即可看到我们的博客
 
-### 绑定域名
+## 绑定域名
 
 如果你不想用http://oldinaction.github.io/这个域名，可以换成自己的域名。具体方法是：
 - 在仓库的根目录下面，新建一个名为 `CNAME` 的文本文件，里面写入你要绑定的域名，比如 `example.com` 或者 `xxx.example.com`。
@@ -59,17 +59,17 @@ tag: [jekyll]
 - 在_config.yml文件中写入`baseurl=""`
 
 
-## windows 在本地搭建 jekyll 博客
+# windows 在本地搭建 jekyll 博客
 
-### 搭建环境
+## 搭建环境
 
-#### 安装Ruby
+### 安装Ruby
 
 - 下载地址：[Ruby](http://rubyinstaller.org/downloads/)
 - 安装时勾选`Add Ruby executables to your PATH` （将ruby加到环境变量的Path中）
 - 检测安装：在命令行运行 `ruby -v` 显示版本号则成功
 
-#### 安装Ruby的DevKit
+### 安装Ruby的DevKit
 
 - 下载地址：[DEVELOPMENT KIT](http://rubyinstaller.org/downloads/) 选择合适的版本
 - 运行解压到某目录，如 `D:\software\RubyDevKit`
@@ -78,23 +78,23 @@ tag: [jekyll]
 	- 运行 `ruby dk.rb init`
 	-  运行 `ruby dk.rb install`
 
-#### 安装jekyll
+### 安装jekyll
 
 打开命令行，运行 `gem install jekyll` ， 得一会运行
 
-#### 安装python
+### 安装python
 
 - 下载地址： [python](https://www.python.org/downloads/) 我下的是2.7.11
 - 勾选`Add python.exe to Path`（将python加到环境变量的Path中）
 -  检测安装：在命令行运行 `python -v`（如果运行失败，看环境变量中是否有python的安装目录）
 
-#### 安装pip
+### 安装pip
 
 pip是一个Python包的安装和管理工具。你会需要它的安装pygments,pygments.rb突出你的代码,使用Python包。
 
 如果Python 2 >=2.7.9 or Python 3 >=3.4，只需在命令行运行 `python -m pip install -U pip` 即可。此处是2.7.11，所有运行命令即可
 
-### 运行jekyll
+## 运行jekyll
 
 - 打开命令行，cd 到 d:/note 目录（博客的目录将会在此处生成）
 - 运行 `jekyll new blog`，此时d:/note会产生一个blog目录
@@ -102,7 +102,7 @@ pip是一个Python包的安装和管理工具。你会需要它的安装pygments
 - 运行 `jekyll serve` ，这是本地博客服务器的启动命令
 - 访问 [http://localhost:4000](http://localhost:4000) 即可看到博客欢迎界面
 
-## jekyll使用笔记
+# jekyll使用笔记
 
 1. 在atom中使用插件mdwriter写文章
 2. 文章元信息中的categories只能有一个分类

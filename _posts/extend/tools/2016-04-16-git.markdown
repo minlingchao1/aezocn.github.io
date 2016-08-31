@@ -6,7 +6,7 @@ categories: extend-tools
 tag: [git]
 ---
 
-## git入门
+# git入门
 
 > 临时记录
 >
@@ -24,11 +24,11 @@ tag: [git]
 > 第二集有几个命令
 
 
-### git初步
+## git初步
 
 git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 
-### git全局配置
+## git全局配置
 
 `git config --global user.name smalle` 设置用户名
 
@@ -47,9 +47,9 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 > - 输入`:x`/`ZZ`将刚刚修改的文件进行保存，退出编辑页面，回到初始命令行
 > `ls`查看当前目录结构，`ls -A`可以显示隐藏的目录
 
-### 创建/克隆repository
+## 创建/克隆repository
 
-#### 创建repository
+### 创建repository
 
 `cd d:/git/demo/`进入到项目文件夹（可使用`mkdir 文件夹名`在当前目录创建文件夹或者手动创建）
 
@@ -62,13 +62,13 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 
 > 此时就产生了后面提到的 staging 和 history 区
 
-#### 克隆repository
+### 克隆repository
 
 `git clone https://github.com/UserName/ProjectName`，这是利用https方式克隆，还有其他如git、ssh等方式（克隆后git会在当前目录新建一个文件夹为 "ProjectName" 的项目）
 
 `git clone -b <branch> <remote>` 克隆远程仓库的某个分支
 
-### 添加、提交文件
+## 添加、提交文件
 
 利用`git add <file>` / `git add .`将 working 中此文件或者所有文件添加到 staging 区（**&lt;file&gt;** 为必输的文件名）
 
@@ -80,7 +80,7 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 >
 > ![git运行流程图](/data/images/2016/04/git流程图.png)
 
-### 与远程仓库同步
+## 与远程仓库同步
 
 `git push 远程仓库地址` 将本地仓库内容同步到远程仓库，回车后输入用户名和密码即可
 
@@ -88,7 +88,7 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 
 `git pull 远程仓库地址` 取回远程仓库的变化
 
-### 查看git状态和文件差别
+## 查看git状态和文件差别
 
 利用`git status`查看文件状态，`git status -s`显示文件扼要信息
 
@@ -112,13 +112,13 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 -  使用`git diff --staged` / `git diff --cached`则是对第一个标识位（staging）进行详细描述；
 - 使用`git diff HEAD`则是对 history 区此文件的描述
 
-### 移除文件
+## 移除文件
 
 `git rm <file>` 将此文件从 repository 中删除
 
 `git rm --cached <file>` 将此文件从 staging 区中删除，此时 working 区中还有
 
-### 撤销操作
+## 撤销操作
 
 `git reset <file>`撤销对此文件的 commit 操作，他会从 history 区中将此文件取出并还原到 staging 区
 
@@ -126,23 +126,23 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 
 `git checkout HEAD <file>`撤销对文件的 add 操作，他会从 history 区中将此文件取出并还原到 working 区
 
-### 其他
+## 其他
 
-#### 查看日志和帮助
+### 查看日志和帮助
 
 `git log`查看提交日志，`Ctrl+Z` 退出查看
 
 `git help` 查看帮助。`[]`为可选，`<>`为必输
 
-#### 忽略控制文件
+### 忽略控制文件
 
 `echo '*~' > .gitignore`将文本`*~`保存到文件 .gitignore 中，再将此文件 add 并 commit 到 git 中即可，表示进行 git 相关操作时忽略以`~`结尾的文件
 
-#### 重命名文件
+### 重命名文件
 
 `git mv README.txt README.md` 将 README.txt 文件重命名为 README.md（markdown格式）
 
-#### 暂存工作区
+### 暂存工作区
 
 `git stash` 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中（比如有紧急Bug需要修复）
 
@@ -152,7 +152,7 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 
 `git stash clear` 清空Git栈
 
-#### commit对象
+### commit对象
 
 commit 对象中 parent 属性指向前一个 commit，tree 属性指向一个 tree 对象（此 tree 对象可以指向文件或者文件夹）
 
@@ -164,7 +164,7 @@ HEAD 的哈希码存放在 .git/refs/heads/master 文件中
 - `git cat-file -p 某个对象的hashCode前几个字母或者对象名` 展示此对象的详细信息
 - `git rev-parse HEAD` 获取 HEAD 对象的哈希码
 
-#### 创建、切换、删除分支
+### 创建、切换、删除分支
 
 `git branch`查看本地分支，`git branch -a`查看本地和运程所有分支（`*`代表当前所处的分支）
 
@@ -178,6 +178,6 @@ HEAD 的哈希码存放在 .git/refs/heads/master 文件中
 
 `git push origin <branch>` 创建远程分支
 
-#### 合并分支
+### 合并分支
 
 `git merge 子分支名` 将子分支名合并到主分支，合并前必须切换到主分支。（子分支的文件会替换掉主分支的文件）

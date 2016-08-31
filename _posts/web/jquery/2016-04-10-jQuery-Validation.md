@@ -3,17 +3,17 @@ layout: post
 title:  "jQuery Validation - Form表单验证插件"
 date:   2016-04-10 18:01:54 +0800
 categories: web
-tag: [jQuery, jQuery-Plugin, metronic]
+tag: [jQuery, validation, metronic]
 ---
 
-## jQuery Validation Plugin介绍
+# jQuery Validation Plugin介绍
 
 > - jQuery Validate 插件为表单提供了强大的验证功能，让客户端表单验证变得更简单，同时提供了大量的定制选项，满足应用程序各种需求。该插件捆绑了一套有用的验证方法，包括 URL 和电子邮件验证，同时提供了一个用来编写用户自定义方法的 API。所有的捆绑方法默认使用英语作为错误信息，且已翻译成其他 37 种语言。
 > - [ jQuery Validate 官网](http://jqueryvalidation.org/)
 > - [GitHub 源码](https://github.com/jzaefferer/jquery-validation)
 > - [本教程源码下载 ( Demo1-Demo5 )](https://github.com/oldinaction/git/tree/master/jQuery-Plugin/jquery-validation)
 
-## 使用方法
+# 使用方法
 
 - 引入JS文件
 
@@ -27,9 +27,9 @@ tag: [jQuery, jQuery-Plugin, metronic]
 - 写验证规则
 - 调用验证方法: `$("#formId").validate();`
 
-## 牛刀小试
+# 牛刀小试
 
-### 验证规则通过html标签属性或者class形式定义
+## 验证规则通过html标签属性或者class形式定义
 
 如：`<input name="username" class="required" minlength="2" maxlength="4" />`表示“该字段为必须输入, 最小长度为2个字符, 最大长度为4个字符”。其中`class="required"`还可写成`required="true"`(同时支持Html5的required属性, 即省略值true)。
 
@@ -70,7 +70,7 @@ tag: [jQuery, jQuery-Plugin, metronic]
 </html>
 ```
 
-### 验证规则写到 js 代码中
+## 验证规则写到 js 代码中
 
 **[Demo2](https://github.com/oldinaction/git/blob/master/jQuery-Plugin/jquery-validation/demo2.html)**
 
@@ -141,11 +141,11 @@ tag: [jQuery, jQuery-Plugin, metronic]
 </html>
 ```
 
-## jQuery Validation插件级别函数
+# jQuery Validation插件级别函数
 
 jQuery Validation插件级别函数包括 `validate()` 、 `valid()` 、 `rules()` , 这些函数可直接使用jQuery对象(form表单相关对象)调用。[官方API 文档](http://jqueryvalidation.org/documentation/)
 
-### validate() 的可选参数介绍
+## validate() 的可选参数介绍
 
 - 设置可选参数:
 
@@ -226,7 +226,7 @@ jQuery Validation插件级别函数包括 `validate()` 、 `valid()` 、 `rules(
 
 关于更多参数介绍请前往[官方参数介绍](http://jqueryvalidation.org/validate)
 
-### valid() 函数获取验证状态
+## valid() 函数获取验证状态
 
 ```javascript
 var $form = $("#formId");
@@ -236,7 +236,7 @@ $( "button" ).click(function() {
 });
 ```
 
-### rules() 函数给字段增加/删除验证规则
+## rules() 函数给字段增加/删除验证规则
 
 ```javascript
 $( "#myinput" ).rules(); // 返回元素的验证规则
@@ -249,7 +249,7 @@ $( "#myinput" ).rules( "remove" ); // 移除所有验证
 $( "#myinput" ).rules( "remove", "min max" ); // 移除最小 最大值验证
 ```
 
-## Validator对象
+# Validator对象
 
 Validator对象可通过 `var validator = $( "#formId" ).validate();` 获取(此时并没有进行验证, 验证的触发在提交表单、表单字段值发生变化等情况下发生), 他包含一些公共方法和静态方法。
 
@@ -291,9 +291,9 @@ Validator对象可通过 `var validator = $( "#formId" ).validate();` 获取(此
 
 如：`$.validator.methods.digits.call(this, value, element)` 在自定义函数中常需要调用另外一个验证函数。this指$.validator, value 和 element 是 digits 函数需要接受的参数
 
-## 验证函数
+# 验证函数
 
-### 插件内置验证函数
+## 插件内置验证函数
 
 名称  |  描述 ( 返回值类型均为Boolean )
 --|--
@@ -324,7 +324,7 @@ equalTo(other)  |  验证两个输入框的内容是否相同
 > - select(multiple="multiple")的minlength表示选中的最小个数（可多选的select）,maxlength表示最大的选中个 数,rangelength:[2,3]表示选中个数区间
 
 
-### 插件扩展验证函数(更多请看`additional-methods.js`)
+## 插件扩展验证函数(更多请看`additional-methods.js`)
 
 名称  |  描述 ( 返回值类型均为Boolean )
 --|--
@@ -334,7 +334,7 @@ phoneUS() |  验证美式的电话号码
 ipv4()  |  验证ipv4地址
 ...  |  ...
 
-### $.validator.addMethod() 自定义验证方法
+## $.validator.addMethod() 自定义验证方法
 
 验证函数可以写在html页面, 也可以写在 `additional-methods.js` 文件中, 对于大型项目第二种常用。(实例: **[Demo4](https://github.com/oldinaction/git/blob/master/jQuery-Plugin/jquery-validation/demo4.html)**)
 
@@ -376,9 +376,9 @@ ipv4()  |  验证ipv4地址
   });
   ```
 
-## jQuery Validation 使用心得
+# jQuery Validation 使用心得
 
-### 关于触发元素验证
+## 关于触发元素验证
 
 我们一般是使用 `onchange` 事件做表单验证, 就是输入框的值发生改变才验证。而 jQuery Validation 暂时不支持此种方式来验证，他是使用点击、元素获取失去焦点、键盘按下等来进行触发验证的。一般我们的新增和修改写在同一个页面，这就产生了一个问题，有这样一种情况：我们要判断某个用户进行用户名修改时数据库中是否有重复的。当我们进到修改页面，不修改用户名，只是让他获取焦点后再失去焦点，这样插件就会提示验证不通过。解决办法是自己写一个扩展方法，将该字段原来的值以参数的形式传入，然后和现在的值进行比较。部分代码如下，具体见 **[Demo5](https://github.com/oldinaction/Git/blob/master/jQuery-Plugin/jquery-validation/demo5.html)** (可与[Demo2](https://github.com/oldinaction/git/blob/master/jQuery-Plugin/jquery-validation/demo2.html)对比)
 
@@ -425,10 +425,6 @@ ipv4()  |  验证ipv4地址
 
 
 
-> 原文地址
->
-> - [http://www.cnblogs.com/oldinaction/p/5361176.html](http://www.cnblogs.com/oldinaction/p/5361176.html)
->
 > 参考网址
 >
 > - [http://jqueryvalidation.org/documentation/](http://jqueryvalidation.org/documentation/)
