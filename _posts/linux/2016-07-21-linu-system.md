@@ -2,7 +2,7 @@
 layout: "post"
 title: "linux系统命令"
 date: "2016-07-21 19:19"
-categories: extend
+categories: linux
 tags: [linux, shell]
 ---
 
