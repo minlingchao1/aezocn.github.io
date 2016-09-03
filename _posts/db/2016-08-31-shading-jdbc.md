@@ -6,6 +6,21 @@ categories: db
 tags: [shading, shading-jdbc]
 ---
 
+## Shading介绍
+
+| 功能          | Cobar         | Mycat         | Heisenberg     | TDDL          | Sharding-JDBC |
+| ------------- | ------------- | ------------- | -------------- | ------------- | ------------- |
+| 是否开源      | 开源          | 开源          | 开源           | 部分开源      | 开源          |
+| 架构模型      | Proxy架构     | Proxy架构     | Proxy架构      | 应用集成架构  | 应用集成架构  |
+| 数据库支持    | MySQL         | 任意          | 任意           | 任意          | MySQL(计划Oracle)         |
+| 外围依赖      | 无            | 无            | 无             | Diamond       | 无            |
+| 使用复杂度    | 一般          | 一般          | 一般           | 复杂          | 一般          |
+| 技术文档支持  | 较少          | 付费          | 较少           | 无            | 一般          |
+| 开源组织  | 阿里          | 社区(Cobar衍生)          | 社区(Cobar衍生)           | 阿里            | 当当          |
+
+1. 其中TDDL是文档较少，github上代码还是4年前更新。现在TDDL已经在阿里云上架，名为DRDS(Distribute Relational Database Service 分布式关系型数据库服务)
+2. 基于Proxy的架构的缺点：网络消耗会产生性能问题，并且多一个外围系统依赖就意味着需要多增加和承担一份风险
+
 ## Shading-JDBC简介
 
 - Sharding-JDBC是当当开源的数据库分库分表中间件。Sharding-JDBC直接封装JDBC协议，可以理解为增强版的JDBC驱动，旧代码迁移成本几乎为零。Sharding-JDBC定位为轻量级java框架，使用客户端直连数据库，以jar包形式提供服务，无proxy代理层，无需额外部署，无其他依赖，DBA也无需改变原有的运维方式。
