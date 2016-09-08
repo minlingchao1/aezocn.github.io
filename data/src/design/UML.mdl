@@ -299,7 +299,7 @@
 			    location   	(408, 447)
 			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	351
+			    max_width  	355
 			    justify    	0
 			    label      	"用户")
 			icon       	"Actor"
@@ -381,7 +381,7 @@
 			    location   	(402, 822)
 			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	351
+			    max_width  	355
 			    justify    	0
 			    label      	"管理员")
 			icon       	"Actor"
@@ -543,7 +543,7 @@
 			    location   	(361, 922)
 			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	351
+			    max_width  	355
 			    justify    	0
 			    label      	"用户")
 			icon       	"Actor"
@@ -762,7 +762,7 @@
 			    location   	(582, 1516)
 			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	351
+			    max_width  	355
 			    justify    	0
 			    label      	"大堂经理")
 			icon       	"Actor"
@@ -995,7 +995,7 @@
 			    location   	(567, 805)
 			    anchor_loc 	1
 			    nlines     	2
-			    max_width  	351
+			    max_width  	355
 			    justify    	0
 			    label      	"收银员")
 			icon       	"Actor"
@@ -1238,24 +1238,6 @@
 				line_color 	3342489
 				fill_color 	13434879
 				quidu      	"578AED89018A"
-				compartment 	(object Compartment
-				    Parent_View 	@51
-				    location   	(486, 653)
-				    font       	(object Font
-					size       	10
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    icon_style 	"Icon"
-				    fill_color 	16777215
-				    anchor     	2
-				    nlines     	3
-				    max_width  	284
-				    justify    	1)
 				width      	304
 				height     	292
 				annotation 	8
@@ -1287,23 +1269,6 @@
 				line_color 	3342489
 				fill_color 	13434879
 				quidu      	"578AED89018A"
-				compartment 	(object Compartment
-				    Parent_View 	@52
-				    location   	(1195, 697)
-				    font       	(object Font
-					size       	10
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    icon_style 	"Icon"
-				    anchor     	2
-				    nlines     	3
-				    max_width  	284
-				    justify    	0)
 				width      	58
 				height     	58
 				annotation 	8
@@ -1474,24 +1439,6 @@
 				line_color 	3342489
 				fill_color 	13434879
 				quidu      	"578AD56C00FC"
-				compartment 	(object Compartment
-				    Parent_View 	@54
-				    location   	(490, 474)
-				    font       	(object Font
-					size       	10
-					face       	"Arial"
-					bold       	FALSE
-					italics    	FALSE
-					underline  	FALSE
-					strike     	FALSE
-					color      	0
-					default_color 	TRUE)
-				    icon_style 	"Icon"
-				    fill_color 	16777215
-				    anchor     	2
-				    nlines     	6
-				    max_width  	498
-				    justify    	1)
 				width      	518
 				height     	442
 				annotation 	8
@@ -1791,7 +1738,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	3
-					    max_width  	284
+					    max_width  	290
 					    justify    	1)
 					width      	304
 					height     	338
@@ -1839,7 +1786,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	3
-					    max_width  	338
+					    max_width  	384
 					    justify    	1)
 					width      	358
 					height     	282
@@ -1899,7 +1846,7 @@
 				zoom       	100
 				max_height 	28350
 				max_width  	21600
-				origin_x   	7074
+				origin_x   	0
 				origin_y   	128
 				items      	(list diagram_item_list
 				    (object ClassView "Class" "Logical View::notes::关系::Classes" @60
@@ -1944,7 +1891,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	291
+					    max_width  	303
 					    justify    	1)
 					width      	312
 					height     	186
@@ -1992,7 +1939,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	291
+					    max_width  	303
 					    justify    	1)
 					width      	312
 					height     	186
@@ -2100,7 +2047,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	291
+					    max_width  	303
 					    justify    	1)
 					width      	312
 					height     	186
@@ -2148,7 +2095,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	291
+					    max_width  	303
 					    justify    	1)
 					width      	312
 					height     	186
@@ -2209,7 +2156,7 @@
 						supplier   	@66
 						vertices   	(list Points
 						    (1612, 584)
-						    (1723, 585))
+						    (1723, 584))
 						line_style 	0
 						label      	(object SegLabel @71
 						    Parent_View 	@70
@@ -2465,7 +2412,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	291
+					    max_width  	303
 					    justify    	1)
 					width      	312
 					height     	186
@@ -2791,7 +2738,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	291
+					    max_width  	303
 					    justify    	1)
 					width      	312
 					height     	186
@@ -2839,7 +2786,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	291
+					    max_width  	303
 					    justify    	1)
 					width      	312
 					height     	186
@@ -3653,7 +3600,7 @@
 					    max_width  	640
 					    justify    	1
 					    label      	
-|泛化：
+|泛化(继承)：
 |实线空心箭头表示
 |
 |此图为UML中关系的泛化图
@@ -3742,7 +3689,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	3
-					    max_width  	284
+					    max_width  	290
 					    justify    	1)
 					width      	304
 					height     	338
@@ -3790,7 +3737,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	3
-					    max_width  	284
+					    max_width  	290
 					    justify    	1)
 					width      	374
 					height     	282
@@ -3951,7 +3898,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	3
-					    max_width  	338
+					    max_width  	384
 					    justify    	1)
 					width      	358
 					height     	282
@@ -4066,7 +4013,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	3
-					    max_width  	284
+					    max_width  	290
 					    justify    	1)
 					width      	304
 					height     	338
@@ -4296,7 +4243,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	225
+					    max_width  	259
 					    justify    	1)
 					width      	246
 					height     	186
@@ -4344,7 +4291,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	225
+					    max_width  	259
 					    justify    	1)
 					width      	246
 					height     	186
@@ -4392,7 +4339,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	2
-					    max_width  	225
+					    max_width  	259
 					    justify    	1)
 					width      	246
 					height     	186
@@ -4440,7 +4387,7 @@
 					    fill_color 	16777215
 					    anchor     	2
 					    nlines     	3
-					    max_width  	225
+					    max_width  	259
 					    justify    	1)
 					width      	246
 					height     	236
@@ -4843,7 +4790,7 @@
 						supplier   	@173
 						vertices   	(list Points
 						    (1449, 383)
-						    (1657, 368))
+						    (1656, 369))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$69" @178
 						Parent_View 	@176
@@ -4855,7 +4802,7 @@
 						supplier   	@175
 						vertices   	(list Points
 						    (1449, 383)
-						    (1242, 396))
+						    (1242, 397))
 						line_style 	0)))
 				    (object UseCaseView "Logical View::notes::用例图::开药" @179
 					location   	(1140, 819)
@@ -4897,7 +4844,7 @@
 						supplier   	@174
 						vertices   	(list Points
 						    (1455, 808)
-						    (1663, 804))
+						    (1662, 804))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$78" @182
 						Parent_View 	@180
@@ -4955,7 +4902,7 @@
 						supplier   	@175
 						vertices   	(list Points
 						    (783, 636)
-						    (880, 573))
+						    (1045, 466))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$63" @186
 						Parent_View 	@184
@@ -4967,7 +4914,7 @@
 						supplier   	@183
 						vertices   	(list Points
 						    (783, 636)
-						    (521, 806))
+						    (521, 807))
 						line_style 	0)))
 				    (object AssociationViewNew "$UNNAMED$70" @187
 					location   	(775, 831)
@@ -4985,7 +4932,7 @@
 						supplier   	@179
 						vertices   	(list Points
 						    (775, 831)
-						    (1028, 820))
+						    (1030, 820))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$72" @189
 						Parent_View 	@187
@@ -4997,7 +4944,7 @@
 						supplier   	@183
 						vertices   	(list Points
 						    (775, 831)
-						    (521, 841))
+						    (521, 842))
 						line_style 	0)))
 				    (object ClassView "Class" "Logical View::notes::用例图::会计" @190
 					ShowCompartmentStereotypes 	TRUE
@@ -5067,7 +5014,7 @@
 						supplier   	@191
 						vertices   	(list Points
 						    (785, 1014)
-						    (1055, 1155))
+						    (1050, 1154))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$75" @194
 						Parent_View 	@192
@@ -5097,7 +5044,7 @@
 						supplier   	@190
 						vertices   	(list Points
 						    (1472, 1212)
-						    (1679, 1212))
+						    (1678, 1212))
 						line_style 	0)
 					    (object RoleView "$UNNAMED$60" @197
 						Parent_View 	@195
@@ -5109,7 +5056,7 @@
 						supplier   	@191
 						vertices   	(list Points
 						    (1472, 1212)
-						    (1267, 1211))
+						    (1267, 1212))
 						line_style 	0)))))))
 		    (object Class_Category "顺序图-协作图"
 			quid       	"578B3C8101BE"
@@ -7267,7 +7214,7 @@
 					    location   	(158, 682)
 					    anchor_loc 	1
 					    nlines     	2
-					    max_width  	351
+					    max_width  	355
 					    justify    	0
 					    label      	"")
 					icon       	"Actor"

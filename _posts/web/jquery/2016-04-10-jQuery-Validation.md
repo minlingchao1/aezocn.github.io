@@ -152,10 +152,16 @@ jQuery Validation插件级别函数包括 `validate()` 、 `valid()` 、 `rules(
   ```javascript
   // 方式一
   $("#formId").validate({
-      debug: false, // 是否开启debug模式: 只验证不提价表单 (默认false)
-      rules: {}, // 相应字段的验证规则
-      messages: {}, // 验证不通过的提示信息
-      ignore: ":hidden", // 忽略某些表单元素不验证(插件默认已经忽略了隐藏元素不验证, 包括display:none的)
+      debug: false, // *** 是否开启debug模式: 只验证不提价表单 (默认false)
+      rules: {}, // *** 相应字段的验证规则
+      messages: {}, // *** 验证不通过的提示信息
+      groups: {username:"fname lname"} // 对一组元素的验证，用一个错误提示
+      submitHandler: function(form) {}, // 验证通过表单提交句柄
+      invalidHandler: function() {}, // 验证错误句柄
+      errorPlacement: function(error, element) {error.appendTo(element.parent());} // 更改错误信息显示的位置，把错误信息放在验证的元素后面
+      ignore: ":hidden", // *** 忽略某些表单元素不验证(插件默认已经忽略了隐藏元素不验证, 包括display:none的)
+      focusCleanup: true, // *** 类型 Boolean，默认 false。当未通过验证的元素获得焦点时，移除错误提示（避免和 focusInvalid 一起使用）
+      success: function(element) {}, // 字段通过验证后的回调
       errorClass: 'error', // 类型 String，默认 "error"。指定错误提示的 css 类名，可以自定义错误提示的样式。
       errorElement: 'label', // 类型 String，默认 "label"。指定使用什么标签标记错误
       OnSubmit: true, // 类型 Boolean，默认 true，指定是否提交时验证
@@ -163,7 +169,6 @@ jQuery Validation插件级别函数包括 `validate()` 、 `valid()` 、 `rules(
       onkeyup: true, // 类型 Boolean，默认 true，指定是否在敲击键盘时验证
       onclick: true, // 类型 Boolean，默认 true，指定是否在鼠标点击时验证（一般验证 checkbox、radiobox）
       focusInvalid: true, // 类型 Boolean，默认 true。提交表单后，未通过验证的表单（第一个或提交之前获得焦点的未通过验证的表单）会获得焦点
-      focusCleanup: true, // 类型 Boolean，默认 false。当未通过验证的元素获得焦点时，移除错误提示（避免和 focusInvalid 一起使用）
       wrapper: '', // 类型 String，指定使用什么标签再把上边的 errorELement 包起来
       errorLabelContainer: '', // 类型 Selector，把错误信息统一放在一个容器里面
       showErrors: , // 类型 Funciotn，可以显示总共有多少个未通过验证的元素
@@ -371,6 +376,7 @@ ipv4()  |  验证ipv4地址
           value: {
             required: true,
             value: ["input[name='a']", "input[name='b']"],
+            // 也可以用map传递参数 value: {name: "smalle", age: 18}
           }
       }
   });
