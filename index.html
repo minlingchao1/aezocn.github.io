@@ -4,22 +4,64 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
+    {% for post in paginator.posts %}
+    <div class="post-preview">
+        <a href="{{ post.url | prepend: site.baseurl }}">
+            <h2 class="post-title">{{ post.title }}</h2>
+        </a>
+        {% if post.subtitle %}
+        <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+        {% endif %}
+        <div class="post-content-preview">
+            {{ post.content | strip_html | truncate:200 }}
+        </div>
+        <p class="post-meta">
+            Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%Y-%m-%d"}}
+        </p>
+    </div>
+    <hr>
     {% endfor %}
-  </ul>
 
-  <p class="rss-subscribe">文章分类 <a href="{{ "/categories" | prepend: site.baseurl }}">categories</a></p>
+    {% if paginator.total_pages > 1 %}
+    <div class="pagination">
+        {% if paginator.total_pages > 2 %}
+            {% if paginator.previous_page %}
+                <a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">首页</a>
+            {% endif %}
+        {% endif %}
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+        {% if paginator.previous_page %}
+            <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; 上一页</a>
+        {% else %}
+            <span>&laquo; 上一页</span>
+        {% endif %}
+
+        {% for page in (1..paginator.total_pages) %}
+            {% if page == paginator.page %}
+                <em>{{ page }}</em>
+            {% elsif page == 1 %}
+                <a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
+            {% else %}
+                <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页 &raquo;</a>
+        {% else %}
+            <span>下一页 &raquo;</span>
+        {% endif %}
+
+        {% if paginator.total_pages > 2 %}
+            {% if paginator.next_page %}
+                <a href="{{ site.baseurl }}/page{{ paginator.total_pages }}/">尾页</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+
+    <p class="rss-subscribe">文章分类 <a href="{{ " /categories " | prepend: site.baseurl }}">categories</a></p>
+    <p class="rss-subscribe">subscribe <a href="{{ " /feed.xml " | prepend: site.baseurl }}">via RSS</a></p>
 
 </div>
