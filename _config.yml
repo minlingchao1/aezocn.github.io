@@ -24,11 +24,11 @@ gems: [jekyll-paginate]
 ### Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 highlighter: rouge
-markdown: kramdown
+markdown: kramdown # kramdown渲染器支持toc分页
 permalink: pretty
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
 anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
 
 # 分页
-paginate: 5 #页长
+paginate: 10 #页长
 paginate_path: "page:num" #页链接。如果点击第2页，则跳转到 http://blog.aezo.cn/page2/

@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="home">
-
+    <!--文章 start-->
     {% for post in paginator.posts %}
     <div class="post-preview">
         <a href="{{ post.url | prepend: site.baseurl }}">
@@ -21,44 +21,63 @@ layout: default
     </div>
     <hr>
     {% endfor %}
+    <!--文章 end-->
 
+    <!--分页 start-->
     {% if paginator.total_pages > 1 %}
     <div class="pagination">
-        {% if paginator.total_pages > 2 %}
-            {% if paginator.previous_page %}
-                <a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">首页</a>
-            {% endif %}
+        {% if paginator.previous_page %}
+            <p class="start"><a href="/index.html">首页</a></p>
+        {%else%}
+            <p class="start disabled"><span>首页</span></p>
         {% endif %}
 
         {% if paginator.previous_page %}
-            <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; 上一页</a>
+            <p class="previous">
+                {% if paginator.previous_page == 1 %}
+                    <a href="/">上一页</a>
+                {% else %}
+                    <a href="{{ paginator.previous_page_path }}">上一页</a>
+                {% endif %}
+            </p>
         {% else %}
-            <span>&laquo; 上一页</span>
+            <p class="previous disabled"><span>上一页</span></p>
         {% endif %}
 
-        {% for page in (1..paginator.total_pages) %}
-            {% if page == paginator.page %}
-                <em>{{ page }}</em>
-            {% elsif page == 1 %}
-                <a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
-            {% else %}
-                <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
-            {% endif %}
-        {% endfor %}
+        <ul class="pages">
+            <li class="page">
+                {% if paginator.page == 1 %}
+                    <span class="current-page">1</span>
+                {% else %}
+                    <a href="/">1</a>
+                {% endif %}
+            </li>
+            {% for count in (2..paginator.total_pages) %}
+            <li class="page">
+                {% if count == paginator.page %}
+                    <span class="current-page">{{ count }}</span>
+                {% else %}
+                    <a href="/page{{ count }}">{{ count }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
 
         {% if paginator.next_page %}
-            <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页 &raquo;</a>
+            <p class="next"><a href="{{ paginator.next_page_path }}">下一页</a></p>
         {% else %}
-            <span>下一页 &raquo;</span>
+            <p class="next disabled"><span>下一页</span></p>
         {% endif %}
 
-        {% if paginator.total_pages > 2 %}
-            {% if paginator.next_page %}
-                <a href="{{ site.baseurl }}/page{{ paginator.total_pages }}/">尾页</a>
-            {% endif %}
+        {% if paginator.next_page %}
+            <p class="end"><a href="/page{{ paginator.total_pages }}">尾页</a></p>
+        {% else %}
+            <p class="end disabled"><span>尾页</span></p>
         {% endif %}
+
     </div>
     {% endif %}
+    <!--分页 end-->
 
 
     <p class="rss-subscribe">文章分类 <a href="{{ " /categories " | prepend: site.baseurl }}">categories</a></p>

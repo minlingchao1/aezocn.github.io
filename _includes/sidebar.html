@@ -2,7 +2,7 @@
     <hr>
     {% for category in site.categories %}
     <li class="category_list_item">
-        <a href="javascript:void(window.location.href=encodeURI('/showCategory.html?categoryName={{ category | first }}'))">{{ category | first }}</a>
+        <a href="javascript:void(window.location.href=encodeURI('/category.html?cat={{ category | first }}'))">{{ category | first }}</a>
          ({{ category | last | size }})
     </li>
     {% endfor %}

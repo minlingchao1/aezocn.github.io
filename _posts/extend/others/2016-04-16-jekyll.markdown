@@ -6,7 +6,10 @@ categories: extend
 tag: [jekyll]
 ---
 
-## jekyll 介绍
+* 目录
+{:toc #postNav}
+
+## jekyll 介绍 [^1]
 
 [Jekyll](http://jekyllrb.com/)（发音/'dʒiːk əl/，"杰克尔"）是一个静态站点生成器，它会根据网页源码生成静态文件。它提供了模板、变量、插件等功能，所以实际上可以用来编写整个网站。
 
@@ -15,7 +18,7 @@ tag: [jekyll]
 > - github Pages 是 GitHub 提供给用户展示项目主页的静态网页。因此利用 jekyll 搭建网站的话，我们只需要编写好网页文件(或者md文件)上传到 Github 即可（上传的文件会经过 jekyll 程序处理，最终得到我们可以浏览的网页）
 > **[本教程源码下载](https://github.com/oldinaction/Git/tree/master/demo/jekyll)**
 
-## 利用 jekyll 搭建博客初步
+## 利用 jekyll 搭建博客初步 [^2]
 
 ### 新建GitHub项目
 
@@ -58,8 +61,9 @@ tag: [jekyll]
 - 如果绑定的是顶级域名，则DNS要新建一条A记录，指向 `204.232.175.78`。如果绑定的是二级域名，则DNS要新建一条CNAME记录，指向`username.github.com`（请将username换成你的用户名）；如果是组织类pages，则指向`username.github.io`
 - 在_config.yml文件中写入`baseurl=""`
 
+---
 
-## windows 在本地搭建 jekyll 博客
+## windows 在本地搭建jekyll博客 [^3]
 
 ### 搭建环境
 
@@ -100,19 +104,125 @@ pip是一个Python包的安装和管理工具。你会需要它的安装pygments
 - 运行 `jekyll new blog`，此时d:/note会产生一个blog目录
 - cd到此目录
 - 运行 `jekyll serve` ，这是本地博客服务器的启动命令
+    - `Ctrl+C` 停止服务
 - 访问 [http://localhost:4000](http://localhost:4000) 即可看到博客欢迎界面
+
+---
 
 ## jekyll使用笔记
 
+### 文章编写
+
 1. 在atom中使用插件mdwriter写文章
-2. 文章元信息中的categories只能有一个分类
+2. 文章元信息中的categories可以有多个分类，如`categories: [web, js]`
 3. `_posts`中目录层级不限，文章的显示只根据元信息获取
+4. jekyll代码和markdown代码需要使用：{% raw %}\{% raw %\}代码\{% endraw %\}{% endraw %}
+
+### jekyll博客主题样式
+
+#### 主题功能
+
+- 主页文章分页 [^4]
+    - `_config.yml`中加入
+
+        {% raw %}
+            paginate: 10
+            paginate_path: "page:num"
+        {% endraw %}
+
+    - 根目录下index.xml
+{% highlight html %}
+{% raw %}
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+    {% if paginator.previous_page %}
+        <p class="start"><a href="/index.html">首页</a></p>
+    {%else%}
+        <p class="start disabled"><span>首页</span></p>
+    {% endif %}
+
+    {% if paginator.previous_page %}
+        <p class="previous">
+            {% if paginator.previous_page == 1 %}
+                <a href="/">上一页</a>
+            {% else %}
+                <a href="{{ paginator.previous_page_path }}">上一页</a>
+            {% endif %}
+        </p>
+    {% else %}
+        <p class="previous disabled"><span>上一页</span></p>
+    {% endif %}
+
+    <ul class="pages">
+        <li class="page">
+            {% if paginator.page == 1 %}
+                <span class="current-page">1</span>
+            {% else %}
+                <a href="/">1</a>
+            {% endif %}
+        </li>
+        {% for count in (2..paginator.total_pages) %}
+        <li class="page">
+            {% if count == paginator.page %}
+                <span class="current-page">{{ count }}</span>
+            {% else %}
+                <a href="/page{{ count }}">{{ count }}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if paginator.next_page %}
+        <p class="next"><a href="{{ paginator.next_page_path }}">下一页</a></p>
+    {% else %}
+        <p class="next disabled"><span>下一页</span></p>
+    {% endif %}
+
+    {% if paginator.next_page %}
+        <p class="end"><a href="/page{{ paginator.total_pages }}">尾页</a></p>
+    {% else %}
+        <p class="end disabled"><span>尾页</span></p>
+    {% endif %}
+
+</div>
+{% endif %}
+{% endraw %}
+{% endhighlight %}
+
+- 文章分类 [^5]
+- markdown文章标题生成目录 [^6]
+
+    {% raw %}
+
+        * 目录(星号必须有，标题可随便取)
+        {:toc} // {:toc #myid} 则会生成id，默认是markdown-toc
+
+        ## 标题一
+
+            如果要把某标题从目录树中排除，则在该标题的下一行写上 {:.no_toc}
+
+    {% endraw %}
+- 代码高亮
+    - 法一：常用
+        - `_config.yml`中加入`highlighter: rouge`
+        - 配上css样式文件
+    - 法二：使用原生高亮代码，如：{% raw %}{% highlight html %}代码{% endhighlight %}{% endraw %}
 
 
-> 参考文章
->
-> - [1] [http://jekyllrb.com/docs/home/](http://jekyllrb.com/docs/home/)
->
-> - [2] [http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html](http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html)
->
-> - [3] [http://blog.csdn.net/itmyhome1990/article/details/41982625](http://blog.csdn.net/itmyhome1990/article/details/41982625)
+
+#### jekyll语法
+
+#### 其他
+
+1. 本地运行的jekyll，修改了`_config.yml`需要重新启动，修改了所有的`.hmtl`，`.md`文件可以直接看到效果
+
+
+---
+
+参考文章
+
+[^1]: [jekyll官方文档](http://jekyllrb.com/docs/home/)
+[^2]:  [Github搭建jekyll博客](http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html)
+[^3]: [Windows本地安装jekyll](http://blog.csdn.net/itmyhome1990/article/details/41982625)
+[^4]: [jekyll文章分类](http://www.52ij.com/jishu/99014.html)
+[^6]: [markdown文章标题生成目录](http://www.111cn.net/sys/linux/70052.htm)

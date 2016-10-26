@@ -43,7 +43,7 @@ frontMatter: """
 layout: "{layout}"
 title: "{title}"
 date: "{date}"
-categories: extend
+categories: [extend]
 tags: [, ]
 ---
 """
