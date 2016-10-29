@@ -7,7 +7,7 @@ tag: [jekyll]
 ---
 
 * 目录
-{:toc #postNav}
+{:toc}
 
 ## jekyll 介绍 [^1]
 
@@ -120,8 +120,6 @@ pip是一个Python包的安装和管理工具。你会需要它的安装pygments
 
 ### jekyll博客主题样式
 
-#### 主题功能
-
 - 主页文章分页 [^4]
     - `_config.yml`中加入
 
@@ -130,66 +128,9 @@ pip是一个Python包的安装和管理工具。你会需要它的安装pygments
             paginate_path: "page:num"
         {% endraw %}
 
-    - 根目录下index.xml
-{% highlight html %}
-{% raw %}
-{% if paginator.total_pages > 1 %}
-<div class="pagination">
-    {% if paginator.previous_page %}
-        <p class="start"><a href="/index.html">首页</a></p>
-    {%else%}
-        <p class="start disabled"><span>首页</span></p>
-    {% endif %}
-
-    {% if paginator.previous_page %}
-        <p class="previous">
-            {% if paginator.previous_page == 1 %}
-                <a href="/">上一页</a>
-            {% else %}
-                <a href="{{ paginator.previous_page_path }}">上一页</a>
-            {% endif %}
-        </p>
-    {% else %}
-        <p class="previous disabled"><span>上一页</span></p>
-    {% endif %}
-
-    <ul class="pages">
-        <li class="page">
-            {% if paginator.page == 1 %}
-                <span class="current-page">1</span>
-            {% else %}
-                <a href="/">1</a>
-            {% endif %}
-        </li>
-        {% for count in (2..paginator.total_pages) %}
-        <li class="page">
-            {% if count == paginator.page %}
-                <span class="current-page">{{ count }}</span>
-            {% else %}
-                <a href="/page{{ count }}">{{ count }}</a>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-
-    {% if paginator.next_page %}
-        <p class="next"><a href="{{ paginator.next_page_path }}">下一页</a></p>
-    {% else %}
-        <p class="next disabled"><span>下一页</span></p>
-    {% endif %}
-
-    {% if paginator.next_page %}
-        <p class="end"><a href="/page{{ paginator.total_pages }}">尾页</a></p>
-    {% else %}
-        <p class="end disabled"><span>尾页</span></p>
-    {% endif %}
-
-</div>
-{% endif %}
-{% endraw %}
-{% endhighlight %}
-
-- 文章分类 [^5]
+    - 见根目录下`index.xml`
+- 文章分类：见`categories.html`
+- 查看分类下的文章 [^5] (**？？？**)
 - markdown文章标题生成目录 [^6]
 
     {% raw %}
@@ -207,12 +148,15 @@ pip是一个Python包的安装和管理工具。你会需要它的安装pygments
         - `_config.yml`中加入`highlighter: rouge`
         - 配上css样式文件
     - 法二：使用原生高亮代码，如：{% raw %}{% highlight html %}代码{% endhighlight %}{% endraw %}
+- 文章搜索(**？？？**)
+- 页面新建
+    - 方法一：在根目录建立`pagetest.html`的文件，访问`http://localhost:4000/pagetest`即可看到该页面
+    - 方法二：在根目录新建`pages`的目录，在里面新建`test1`目录，在test1目录新建`index.html`文件，访问`http://localhost:4000/pages/test1`即可看到该页面。注意test1目录只有名为index.html的文件才生效。同理在pages目录新建test2，亦可访问test2的链接
 
 
+### jekyll语法
 
-#### jekyll语法
-
-#### 其他
+### 其他
 
 1. 本地运行的jekyll，修改了`_config.yml`需要重新启动，修改了所有的`.hmtl`，`.md`文件可以直接看到效果
 

@@ -6,6 +6,9 @@ categories: extend
 tag: [git]
 ---
 
+* 目录
+{:toc}
+
 ## git入门
 
 > 临时记录
@@ -86,7 +89,7 @@ git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
 
 `git fetch 远程仓库地址` 下载远程仓库的变动到当前分支的历史区
 
-`git pull 远程仓库地址` 取回远程仓库的变化到当前分支的工作区。如：`git pull origin develop`
+`git pull 远程仓库地址` 取回远程仓库的变化到当前分支的工作区。如：`git pull origin develop`获取远程develop分支，`git pull`获取本分支的远程分支
 
 ### 查看git状态和文件差别
 

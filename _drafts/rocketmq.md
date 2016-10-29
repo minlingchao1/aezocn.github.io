@@ -2,14 +2,18 @@
 layout: "post"
 title: "RocketMQ"
 date: "2016-07-11 09:26"
-categories: extend
-tags: [, ]
+categories: middleware
+tags: [mq, alibaba]
 ---
+
+* 目录
+{:toc}
 
 ## RocketMQ简介
 
 - RocketMQ是阿里巴巴开源的分布式、队列模型的消息中间件。
 - [【GitHub源码】](https://github.com/alibaba/RocketMQ) [【下载地址(v3.2.6)】](https://github.com/alibaba/RocketMQ/releases/download/v3.2.6/alibaba-rocketmq-3.2.6.tar.gz)
+- 文档：[RocketMQ Developer Guide.pdf](/data/doc/middleware/RocketMQ Developer Guide.pdf)
 
 ## 启动RocketMQ服务
 
