@@ -20,6 +20,8 @@ tags: [linux, shell]
 5. `netstat -anp` 常看所有端口
   - `netstat -anp | grep tomcat` 查看含有tomcat相关的进程
 6. 安装程序包 `rpm -ivh 安装包名`
+7. 查看安装程序(支持模糊查询)：`rpm -qa | grep vsftpd` 查看是否安装vsftpd(一款ftp服务器软件)
+8. 检查网络连接：`ping 192.168.1.1`(或者`ping www.baidu.com`)，检查端口：`telnet 192.168.1.1 8080`
 
 ## 文件系统
 1. 新建文件夹 **`mkdir` DirName** (或者用绝对路径 `mkdir /usr/local/DirName`)
