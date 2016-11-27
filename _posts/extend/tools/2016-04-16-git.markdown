@@ -26,11 +26,6 @@ tag: [git]
 >
 > 第二集有几个命令
 
-
-### git初步
-
-git入门视频 <>
-
 ### git全局配置
 
 `git config --global user.name smalle` 设置用户名
@@ -50,26 +45,39 @@ git入门视频 <>
 > - 输入`:x`/`ZZ`将刚刚修改的文件进行保存，退出编辑页面，回到初始命令行
 > `ls`查看当前目录结构，`ls -A`可以显示隐藏的目录
 
-### 创建/克隆repository
+### repository
 
-#### 创建repository
+1. 创建repository
+	- `cd d:/git/demo/`进入到项目文件夹（可使用`mkdir 文件夹名`在当前目录创建文件夹或者手动创建）
+		> - 此时git bash上显示`smalle@ST-008 MINGW64 /d/git/demo`（直接在demo目录`右键-Git Bash Here`也是这个显示）
+		> - 如果直接点击桌面上的git图标进入命令行显示的是`smalle@ST-008 MINGW64 ~`
+		> - 创建之后，d:/git/demo/目录就是后面提到到 working 区（其实就是本地磁盘）
 
-`cd d:/git/demo/`进入到项目文件夹（可使用`mkdir 文件夹名`在当前目录创建文件夹或者手动创建）
-
-> - 此时git bash上显示`smalle@ST-008 MINGW64 /d/git/demo`（直接在demo目录`右键-Git Bash Here`也是这个显示）
-> - 如果直接点击桌面上的git图标进入命令行显示的是`smalle@ST-008 MINGW64 ~`
-> - 创建之后，d:/git/demo/目录就是后面提到到 working 区（其实就是本地磁盘）
-
-`$ git init`初始化项目，提示 Initialized empty Git repository in D:/git/demo/.git/
+	- `$ git init`初始化项目，提示 Initialized empty Git repository in D:/git/demo/.git/
 (上传 $ git remote add origin https://github.com/oldinaction/jekyll_demo.git  $ git push origin master)
+		> 此时就产生了后面提到的 staging 和 history 区
 
-> 此时就产生了后面提到的 staging 和 history 区
+2. 克隆repository
+	- `git clone https://github.com/UserName/ProjectName`，这是利用https方式克隆，还有其他如git、ssh等方式（克隆后git会在当前目录新建一个文件夹为 "ProjectName" 的项目）
+	- `git clone -b <branch> <remote>` 克隆远程仓库的某个分支`remote`为本地的`branch`分支
 
-#### 克隆repository
+### 分支
 
-`git clone https://github.com/UserName/ProjectName`，这是利用https方式克隆，还有其他如git、ssh等方式（克隆后git会在当前目录新建一个文件夹为 "ProjectName" 的项目）
-
-`git clone -b <branch> <remote>` 克隆远程仓库的某个分支
+1. 查看分支
+	- `git branch` 查看本地分支（`*`代表当前所处的分支）
+	- `git branch -a` 查看本地和运程所有分支
+2. 创建分支
+	- `git branch 分支名` 创建一个新的分支。如果此分支和 master 是同一级分支（及在处于 master 时创建的分支），那么他们指向同一个 commit 对象
+	- `git checkout -b 分支名` 创建此分支并且换到此分支（是`git branch 分支名` 和 `git checkout 分支名`的合并命令）
+	- `git checkout -b 分支名 远程分支名` 相当于检出远程的某个分支到本地，远程分支名如origin/b1、remotes/origin/b1
+		- `git checkout 远程分支名` 命令会是当前HEAD变为一个游离的HEAD（即现在HEAD指向的是一个没有分支名字的修订版本，游离于已知的所有分支之外，如`HEAD detached at origin/b1`）
+	- `git push origin <branch>` 创建远程分支
+3. 切换分支
+	- `git checkout 分支名` 切换到此分支（*Switched to branch '分支名'*），此时 HEAD 指向此分支；并且本地磁盘（working 区）的内容会显示此分支的文件
+4. 合并分支
+	- `git merge 子分支名` 将子分支名合并到主分支，合并前必须切换到主分支。（子分支的文件会替换掉主分支的文件）
+5. 删除分支
+	- `git branch -d 分支名` 删除此分支（只能删除除当前分支以外的分支；如果当前分支有一次提交，则需要将此分支合并到主分支之后再进行删除）
 
 ### 添加、提交文件
 
@@ -167,30 +175,9 @@ HEAD 的哈希码存放在 .git/refs/heads/master 文件中
 - `git cat-file -p 某个对象的hashCode前几个字母或者对象名` 展示此对象的详细信息
 - `git rev-parse HEAD` 获取 HEAD 对象的哈希码
 
-#### 创建、切换、删除分支
-
-`git branch`查看本地分支，`git branch -a`查看本地和运程所有分支（`*`代表当前所处的分支）
-
-`git branch 分支名` 创建一个新的分支。如果此分支和 master 是同一级分支（及在处于 master 时创建的分支），那么他们指向同一个 commit 对象
-
-`git checkout 分支名` 切换到此分支（*Switched to branch '分支名'*），此时 HEAD 指向此分支；并且本地磁盘（working 区）的内容会显示此分支的文件
-
-`git branch -d 分支名` 删除此分支（只能删除除当前分支以外的分支；如果当前分支有一次提交，则需要将此分支合并到主分支之后再进行删除）
-
-`git checkout -b 分支名` 创建此分支并且换到此分支（是`git branch 分支名` 和 `git checkout 分支名`的合并命令）
-
-`git push origin <branch>` 创建远程分支
-
-#### 合并分支 [^2]
-
-`git merge 子分支名` 将子分支名合并到主分支，合并前必须切换到主分支。（子分支的文件会替换掉主分支的文件）
-
-
-
 
 ---
 
 参考文章
 
-[^1]: http://edu.51cto.com/course/course_id-1838.html
-[^2]: [http://edu.51cto.com/course/course_id-1838.html](http://edu.51cto.com/course/course_id-1838.html)
+[^1]: [Git入门视频](http://edu.51cto.com/course/course_id-1838.html)
