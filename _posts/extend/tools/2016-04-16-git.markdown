@@ -9,7 +9,7 @@ tag: [git]
 * 目录
 {:toc}
 
-## git入门
+## git入门 [^1]
 
 > 临时记录
 >
@@ -29,7 +29,7 @@ tag: [git]
 
 ### git初步
 
-git入门视频 <http://edu.51cto.com/course/course_id-1838.html>
+git入门视频 <>
 
 ### git全局配置
 
@@ -181,6 +181,16 @@ HEAD 的哈希码存放在 .git/refs/heads/master 文件中
 
 `git push origin <branch>` 创建远程分支
 
-#### 合并分支
+#### 合并分支 [^2]
 
 `git merge 子分支名` 将子分支名合并到主分支，合并前必须切换到主分支。（子分支的文件会替换掉主分支的文件）
+
+
+
+
+---
+
+参考文章
+
+[^1]: http://edu.51cto.com/course/course_id-1838.html
+[^2]: [http://edu.51cto.com/course/course_id-1838.html](http://edu.51cto.com/course/course_id-1838.html)
