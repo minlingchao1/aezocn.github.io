@@ -49,12 +49,14 @@ tag: [git]
 
 1. 创建repository
 	- `cd d:/git/demo/`进入到项目文件夹（可使用`mkdir 文件夹名`在当前目录创建文件夹或者手动创建）
+
 		> - 此时git bash上显示`smalle@ST-008 MINGW64 /d/git/demo`（直接在demo目录`右键-Git Bash Here`也是这个显示）
 		> - 如果直接点击桌面上的git图标进入命令行显示的是`smalle@ST-008 MINGW64 ~`
 		> - 创建之后，d:/git/demo/目录就是后面提到到 working 区（其实就是本地磁盘）
 
 	- `$ git init`初始化项目，提示 Initialized empty Git repository in D:/git/demo/.git/
 (上传 $ git remote add origin https://github.com/oldinaction/jekyll_demo.git  $ git push origin master)
+
 		> 此时就产生了后面提到的 staging 和 history 区
 
 2. 克隆repository
