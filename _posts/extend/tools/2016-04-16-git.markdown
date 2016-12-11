@@ -61,7 +61,7 @@ tag: [git]
 
 2. 克隆repository
 	- `git clone https://github.com/UserName/ProjectName`，这是利用https方式克隆，还有其他如git、ssh等方式（克隆后git会在当前目录新建一个文件夹为 "ProjectName" 的项目）
-	- `git clone -b <branch> <remote>` 克隆远程仓库的某个分支`remote`为本地的`branch`分支
+	- `git clone -b <remote branch> <remote address>` 克隆远程仓库的某个分支
 
 ### 分支
 
@@ -70,9 +70,9 @@ tag: [git]
 	- `git branch -a` 查看本地和运程所有分支
 2. 创建分支
 	- `git branch 分支名` 创建一个新的分支。如果此分支和 master 是同一级分支（及在处于 master 时创建的分支），那么他们指向同一个 commit 对象
-	- `git checkout -b 分支名` 创建此分支并且换到此分支（是`git branch 分支名` 和 `git checkout 分支名`的合并命令）
+	- `git checkout -b 分支名` 创建一个本地分支并且换到此分支（是`git branch 分支名` 和 `git checkout 分支名`的合并命令）
 	- `git checkout -b 分支名 远程分支名` 相当于检出远程的某个分支到本地，远程分支名如origin/b1、remotes/origin/b1
-		- `git checkout 远程分支名` 命令会是当前HEAD变为一个游离的HEAD（即现在HEAD指向的是一个没有分支名字的修订版本，游离于已知的所有分支之外，如`HEAD detached at origin/b1`）
+		- 勿使用 `git checkout 远程分支名` 命令会是当前HEAD变为一个游离的HEAD（即现在HEAD指向的是一个没有分支名字的修订版本，游离于已知的所有分支之外，如`HEAD detached at origin/b1`）
 	- `git push origin <branch>` 创建远程分支
 3. 切换分支
 	- `git checkout 分支名` 切换到此分支（*Switched to branch '分支名'*），此时 HEAD 指向此分支；并且本地磁盘（working 区）的内容会显示此分支的文件
