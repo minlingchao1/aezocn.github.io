@@ -2,7 +2,7 @@
 layout: "post"
 title: "IntelliJ IDEA"
 date: "2016-09-17 15:37"
-categories: extend
+categories: [extend, tools]
 tags: [IDE]
 ---
 

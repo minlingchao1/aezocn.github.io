@@ -58,11 +58,11 @@ Oracle需要装client才能让第三方工具(如pl/sql)通过OCI(Oracle Call In
 
 ## 创建表空间 [^2]
 
-oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库
+oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库。创建了表空间并没有创建数据库实例
 
 1. 登录：`sqlplus / as sysdba`
 2. 创建表空间：`create tablespace aezocn datafile 'd:/tablespace/aezo' size 800m extent management local segment space management auto;` ，要先建好路径 d:/tablespace ，最终会在该目录下建一个 AEZO 的文件
-    - 删除表空间：`drop tablespace aezocn including contents and datafiles`
+    - 删除表空间：`drop tablespace aezocn including contents and datafiles;`
 3. 创建用户：`create user aezo identified by aezo default tablespace aezocn;`
 4. 授权
     - `grant create session to aezo;`
@@ -129,6 +129,7 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库
         - 默认使用的表空间是`USERS`，使用`create user aezo identified by aezo default tablespace aezocn;`可设定默认表空间
         - 删除用户：`drop user aezo cascade;`
     - 修改用户密码：`alter user scott identified by tiger;`
+    - 修改用户表空间：`alter user aezo default tablespace aezocn;`
     - 解锁用户：`alter user scott account unlock;` (新建数据库scott默认未解锁)
 4. 授权
     - `grant create session to aezo;` 授予aezo用户创建session的权限，即登陆权限

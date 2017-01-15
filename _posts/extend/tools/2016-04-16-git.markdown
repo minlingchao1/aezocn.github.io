@@ -2,7 +2,7 @@
 layout: "post"
 title: "git"
 date: "2016-04-16 12:40"
-categories: extend
+categories: [extend, tools]
 tag: [git]
 ---
 
@@ -16,7 +16,6 @@ tag: [git]
 > - `git add/rm` 、 `git cimmit` 时报错【fatal: Unable to create 'D:/git/demo/.git/index.lock': File exists.】，解决办法为删除本地仓库中的此文件（`rm -f ./.git/index.lock`）。
 > - 运行命令`git commit --amend`、`git diff`后、打开vi编辑器出错，退出快捷键`Ctrl+Z`
 > - `ls`或者`dir`都可以查看当前目录结构
-> - `git status`查看当前状态
 > - 删除文件git rm、git add、git commit、git push
 > - 网址
 >	- <http://www.jianshu.com/p/e2a15d01284c>
@@ -28,13 +27,10 @@ tag: [git]
 
 ### git全局配置
 
-`git config --global user.name smalle` 设置用户名
-
-`git config --global user.email oldinaction@qq.com` 设置邮箱
-
-`git config --global color.ui true` 设置在命令行打印的代码带颜色
-
-`git config --list`  列出所有配置
+- `git config --global user.name smalle` 设置用户名
+- `git config --global user.email oldinaction@qq.com` 设置邮箱
+- `git config --global color.ui true` 设置在命令行打印的代码带颜色
+- `git config --list`  列出所有配置
 
 以上操作其实是对git的根目录下.gitconfig（`~/.gitconfig`，`~`代表根目录，`cat  ~/.gitconfig`查看此文件）进行的操作，也可直接对这个文件进行修改
 
@@ -61,7 +57,7 @@ tag: [git]
 
 2. 克隆repository
 	- `git clone https://github.com/UserName/ProjectName`，这是利用https方式克隆，还有其他如git、ssh等方式（克隆后git会在当前目录新建一个文件夹为 "ProjectName" 的项目）
-	- `git clone -b <remote branch> <remote address>` 克隆远程仓库的某个分支
+	- `git clone -b <remote branch> <remote address>` 克隆远程仓库的某个分支（如：`git clone -b master http://192.168.1.1/test.git`）
 
 ### 分支
 
@@ -92,6 +88,13 @@ tag: [git]
 > git运行流程图
 >
 > ![git运行流程图](/data/images/2016/04/git流程图.png)
+
+### 撤销
+
+- `git checkout .` #本地所有修改的。没有的提交的，都返回到原来的状态
+- `git stash` #把所有没有提交的修改暂存到stash里面。可用git stash pop回复。
+- `git reset --hard HASH` #返回到某个节点，不保留修改。
+- `git reset --soft HASH` #返回到某个节点。保留修改
 
 ### 与远程仓库同步
 
@@ -149,7 +152,16 @@ tag: [git]
 
 #### 忽略控制文件
 
-`echo '*~' > .gitignore`将文本`*~`保存到文件 .gitignore 中，再将此文件 add 并 commit 到 git 中即可，表示进行 git 相关操作时忽略以`~`结尾的文件
+1. `.gitignore` 文件创建和设置
+	- git根目录运行命令：`touch .gitignore`
+	- 使用 vi 编辑器进行文件配置
+2. 配置语法
+	- 以斜杠`/`开头表示目录
+	- 以星号`*`通配多个字符
+	- 以问号`?`通配单个字符
+	- 以方括号`[]`包含单个字符的匹配列表
+	- 以叹号`!`表示不忽略(跟踪)匹配到的文件或目录
+3. `echo '*~' > .gitignore`将文本`*~`保存到文件 .gitignore 中，再将此文件 add 并 commit 到 git 中即可，表示进行 git 相关操作时忽略以`~`结尾的文件
 
 #### 重命名文件
 
