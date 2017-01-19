@@ -32,9 +32,10 @@ tags: [linux, shell]
     - `netstat -lnp` 查看所有进场信息(端口、PID)
     - 强制杀进程 `kill -s 9 PID`
 10. 运行sh文件：进入到该文件目录，运行`./xxx.sh`
-11. 后台运行sh文件：`nohup bash xxx.sh > my.log 2>&1 &`
+11. 后台运行sh文件：`nohup bash startofbiz.sh &`
     - 利用客户端连接服务器，执行的程序当客户端退出后，服务器的程序也停止了，下面是解决版本
-    - `nohup`这个表示拖机执行，最后面的`&`表示放在后台执行
+    - `nohup`这个表示拖机执行，最后面的`&`表示放在后台执行，默认在当前目录生成一个`nohup.out`的日志文件
+    - `nohup bash startofbiz.sh > my.log 2>&1 &` 可以指定日志文件
     - `2>&1` 表示记录错误和正确的日志，日志文件位置为 `my.log`
 
 ## 文件系统
@@ -51,6 +52,7 @@ tags: [linux, shell]
 5. 查看文件属性 **`file` FileName**
 6. 查询文件 **`whereis` FileName**
     - 查询可执行文件位置 **`which` exeName** (在PATH路径中寻找)
+7. 查询文件位置 `find / -name nginx.conf` 查看`nginx.conf`文件所在位置
 
 ### 文件夹/目录
 
@@ -75,18 +77,20 @@ tags: [linux, shell]
 
 1. 解压
     - `unzip file.zip` 解压zip
-    - `tar –xvf file.tar` 解压tar包
-    - `tar -xzvf file.tar.gz` 解压tar.gz
-    - `tar -xjvf file.tar.bz2` 解压tar.bz2
-    - `tar –xZvf file.tar.Z` 解压tar.Z
-    - `unrar e file.rar` 解压rar
+    - `tar –xvf archive.tar` 解压tar包
+    - `tar -xvf archive.tar -C /tmp` 将压缩包释放到 /tmp目录下
+    - `tar -xzvf archive.tar.gz` 解压tar.gz
+    - `tar -xjvf archive.tar.bz2` 解压tar.bz2
+    - `tar –xZvf archive.tar.Z` 解压tar.Z
+    - `unrar e archive.rar` 解压rar
 2. 压缩
-    - `tar –cvf jpg.tar *.jpg` 将目录里所有jpg文件打包成tar.jpg
-    - `tar –czf jpg.tar.gz *.jpg` 将目录里所有jpg文件打包成jpg.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为jpg.tar.gz
-    - `tar –cjf jpg.tar.bz2 *.jpg` 将目录里所有jpg文件打包成jpg.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包，命名为jpg.tar.bz2
-    - `tar –cZf jpg.tar.Z *.jpg` 将目录里所有jpg文件打包成jpg.tar后，并且将其用compress压缩，生成一个umcompress压缩过的包，命名为jpg.tar.Z
-    - `rar a jpg.rar *.jpg` rar格式的压缩，需要先下载rar for linux
-    - `zip jpg.zip *.jpg` zip格式的压缩，需要先下载zip for linux
+    - `tar -cvf aezocn.rar file1 file2 dir1` 同时压缩 file1, file2 以及目录 dir1
+    - `tar –cvf aezocn.tar *.jpg` 将目录里所有jpg文件打包成aezocn.jpg
+    - `tar –czf aezocn.tar.gz *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为jpg.tar.gz
+    - `tar –cjf aezocn.tar.bz2 *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包，命名为jpg.tar.bz2
+    - `tar –cZf aezocn.tar.Z *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用compress压缩，生成一个umcompress压缩过的包，命名为jpg.tar.Z
+    - `rar a aezocn.rar *.jpg` rar格式的压缩，需要先下载rar for linux
+    - `zip aezocn.zip *.jpg` zip格式的压缩，需要先下载zip for linux
 
 
 ## 权限系统

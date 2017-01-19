@@ -43,8 +43,40 @@ tags: [CentOS, server]
 - 运行命令 `. /etc/profile` 使profile立即生效(注意 . 和 / 之间有空格)
 - `java -version` 打印版本号
 
+### 安装vsftpd [^1]
+
+1. 安装`yum install vsftpd`
+2. 修改默认配置文件`vim /etc/vsftpd/vsftpd.conf`
+    - `anonymous_enable=NO` 允许匿名登录(NO)
+    - `anon_upload_enable=NO` 禁止匿名用户上传
+    - `chroot_list_enable=NO` 禁止用户登出自己的FTP主目录
+    - `connect_from_port_20=YES` 设定端口20进行数据连接，默认是21端口
+    - `listen_port=2121` 监听端口
+    - 如果`userlist_deny=YES`，/etc/vsftpd/user_list中列出的用户名就不允许登录ftp服务器；如果`userlist_deny=NO`，/etc/vsftpd/user_list中列出的用户名允许登录ftp服务器
+3. 设置用户
+    - 法一：设置Vsftpd服务的宿主用户 `useradd vsftpd -s /sbin/nologin`
+        - `passwd vsftpd` 给vsftpd设置密码
+        - 默认的Vsftpd的服务宿主用户是root，但是这不符合安全性的需要。这里建立名字为vsftpd的用户，用他来作为支持Vsftpd的服务宿主用户。由于该用户仅用来支持Vsftpd服务用，因此没有许可他登陆系统的必要，并设定他为不能登陆系统的用户
+    - 法二：设置Vsftpd虚拟宿主用户 `useradd aezo -s /sbin/nologin`
+        - `-d /home/nowhere` 使用-d参数指定用户的主目录，用户主目录并不是必须存在的。如果不设置会在`home`目录下建一个aezo的文件夹
+        - `guest_username=aezo` 指定虚拟用户的宿主用户
+        - `virtual_use_local_privs=YES` 设定虚拟用户的权限符合他们的宿主用户
+        - `user_config_dir=/etc/vsftpd/vconf` 设定虚拟用户个人Vsftp的配置文件存放路径
+
+
 ### git安装
 
 1. 查看是否安装git/查看git是否安装成功：`git --version`
     - `-bash: git: command not found` 表示尚未安装
 2. 下载安装：`yum install git`
+
+
+
+
+
+
+---
+
+参考文章
+
+[^1]: [vsftpd](http://www.cnblogs.com/hhuai/archive/2011/02/12/1952647.html)
