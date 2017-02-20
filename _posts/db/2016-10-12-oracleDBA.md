@@ -113,10 +113,11 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
 ### 操作相关
 
 1. 系统
+    - `lsnrctl start` 启动监听程序
     - `sqlplus /nolog` 以nolog身份登录，进入sql命令行
     - `startup;` 正常启动（1启动实例，2打开控制文件，3打开数据文件）
-    - `shutdown;` 有用户连接就不关闭，直到所有用户断开连接
     - `shutdown immediate` 大多数情况下使用。迫使每个用户执行完当前SQL语句后断开连接
+        - `shutdown;` 有用户连接就不关闭，直到所有用户断开连接
     - `exit;` 退出sqlplus
 2. 管理员登录
     - sqlplus本地登录：`sqlplus / as sysdba`，以sys登录。sys为系统管理员，拥有最高权限；system为本地管理员，次高权限
@@ -140,10 +141,11 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
 
 1. 系统
     - 查看服务是否启动：`tnsping local_orcl` cmd直接运行
-        - 远程查看：`tnsping 192.168.1.1:1521/orcl`、或者`tnsping remote_orcl`(其中remote_orcl已经在本地建立好了监听映射，如配置在tnsnames.ora)
+        - 远程查看(cmd运行)：`tnsping 192.168.1.1:1521/orcl`、或者`tnsping remote_orcl`(其中remote_orcl已经在本地建立好了监听映射，如配置在tnsnames.ora)
         - 如果能够ping通，则说明客户端能解析listener的机器名，而且lister也已经启动，但是并不能说明数据库已经打开，而且tsnping的过程与真正客户端连接的过程也不一致。但是如果不能用tnsping通，则肯定连接不到数据库
+    - 查看表空间数据文件位置：`select file_name, tablespace_name from dba_data_files;`
 2. 用户相关查询
-    - 查看当前用户默认表空间：`select username, default_tablespace from user_users;`
+    - 查看当前用户默认表空间：`select username, default_tablespace from user_users;`(以dba登录则结果为SYS和SYSTEM)
     - 查看当前用户角色：`select * from user_role_privs;`
     - 查看当前用户系统权限：`select * from user_sys_privs;`
     - 查看当前用户表级权限：`select * from user_tab_privs;`
@@ -190,7 +192,20 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
         - `V$DATAFILE` 记录来自控制文件的数据文件信息
         - `V$FILESTAT` 记录数据文件读写的基本信息
 
+### 常见错误
 
+1. 常用技巧
+    - 常看日志文件目录 `show parameter background_dump_dest`
+
+2. 表空间数据文件丢失，删除表空间报错ORA-02449、ORA-01115 [^6]
+    - oracle数据文件(datafile)被误删除后，只能把该数据文件offline后drop掉
+    - `sqlplus / as sysdba`
+    - `shutdown abort` 强制关闭oracle
+    - `startup mount` 启动挂载
+    - `alter database datafile '/home/oracle/xxx' offline drop;` 从数据库删除该表空间的数据文件
+        - `select file_name, tablespace_name from dba_data_files;` 查看表空间数据文件位置
+    - `alter database open;`
+    - `drop tablespace 表空间名`
 
 
 
@@ -199,3 +214,4 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
 [^3]: http://www.cnblogs.com/yzy-lengzhu/archive/2013/03/11/2953500.html
 [^4]: http://blog.csdn.net/studyvcmfc/article/details/5679235
 [^5]: http://blog.csdn.net/yitian20000/article/details/6256716
+[^6]: [强制删除表空间](http://blog.chinaunix.net/uid-11570547-id-59108.html)

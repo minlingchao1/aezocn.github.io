@@ -9,6 +9,13 @@ tags: [CentOS, server]
 * 目录
 {:toc}
 
+## 基本命令
+
+- `yum install vsftpd` 安装软件vsftpd，一路y下去
+- `yum search vsftpd` 查找软件vsftpd源
+- Centos 7使用firewalld代替了原来的iptables
+- 云服务器一般有进站出站规则，端口开发除了系统的防火墙也要考虑进出站规则
+
 ## 常用软件安装
 
 ### 安装jdk
@@ -45,23 +52,59 @@ tags: [CentOS, server]
 
 ### 安装vsftpd [^1]
 
+> ftp/sftp是协议，vsftpd是ftp服务器(只支持ftp协议)
+> `yum install ftp`安装后可执行ftp命令，此时ftp相当于一个客户端，和window下的xftp类似
+
 1. 安装`yum install vsftpd`
 2. 修改默认配置文件`vim /etc/vsftpd/vsftpd.conf`
-    - `anonymous_enable=NO` 允许匿名登录(NO)
-    - `anon_upload_enable=NO` 禁止匿名用户上传
-    - `chroot_list_enable=NO` 禁止用户登出自己的FTP主目录
-    - `connect_from_port_20=YES` 设定端口20进行数据连接，默认是21端口
-    - `listen_port=2121` 监听端口
-    - 如果`userlist_deny=YES`，/etc/vsftpd/user_list中列出的用户名就不允许登录ftp服务器；如果`userlist_deny=NO`，/etc/vsftpd/user_list中列出的用户名允许登录ftp服务器
+
+    ```
+        #不允许匿名登录(NO)
+        anonymous_enable=NO
+        #禁止匿名用户上传
+        anon_upload_enable=NO
+
+        #禁止用户登出自己的FTP主目录
+        chroot_list_enable=NO
+        #允许用户登出到某些目录，那么凡是加在文件chroot_list中的用户都是不受限止的用户即可以浏览其主目录的上级目录
+        #chroot_list_enable=YES
+        #chroot_list_file=/etc/vsftpd/chroot_list
+
+        #设定20端口进行通信，对外默认是21端口。防火墙要开放20、21端口
+        #connect_from_port_20=YES
+        #监听端口
+        #listen_port=2121
+
+        ##加在最后
+        #开启pam模式，/etc/vsftpd/ftpusers中为禁止登录的用户 [^2]
+        pam_service_name=vsftpd
+        #对vsftpd有用，否则因home目录权限为root权限而无法登录
+        allow_writeable_chroot=YES
+        #开启pasv模式，否则有些客户端登录会有问题，同时在防火墙中必须开启设定的端口，防火墙要开放30000-30999的端口
+        #pasv_enable=YES
+        pasv_min_port=30000
+        pasv_max_port=30999
+        #限定可登录用户列表
+        userlist_enable=YES
+        userlist_file=/etc/vsftpd/user_list
+        #表示默认所有用户都不能登录，只有列表中用户才可以；如果userlist_deny=YES，则user_list中的用户就不允许登录ftp服务器
+        userlist_deny=NO
+
+    ```
+
 3. 设置用户
-    - 法一：设置Vsftpd服务的宿主用户 `useradd vsftpd -s /sbin/nologin`
+    - 法一(应用程序内部使用推荐)：设置vsftpd服务的宿主用户 `useradd ftpadmin -d /home/ftproot -s /sbin/nologin`
         - `passwd vsftpd` 给vsftpd设置密码
-        - 默认的Vsftpd的服务宿主用户是root，但是这不符合安全性的需要。这里建立名字为vsftpd的用户，用他来作为支持Vsftpd的服务宿主用户。由于该用户仅用来支持Vsftpd服务用，因此没有许可他登陆系统的必要，并设定他为不能登陆系统的用户
-    - 法二：设置Vsftpd虚拟宿主用户 `useradd aezo -s /sbin/nologin`
+        - 默认的vsftpd的服务宿主用户是root，但是这不符合安全性的需要。这里建立名字为ftpadmin的用户，用他来作为支持vsftpd的服务宿主用户。由于该用户仅用来支持vsftpd服务用，因此没有许可他登陆系统的必要，并设定他为不能登陆系统的用户（-s /sbin/nologin）。并设置ftpadmin的家目录为/home/ftproot(做为ftp服务器的根目录)
+        - 将ftpadmin加到/etc/vsftpd/user_list中
+        - 文件/home/ftproot的所有者是ftpadmin，设置权限为755，包含子目录
+    - 法二：设置vsftpd虚拟宿主用户 `useradd aezo -s /sbin/nologin`
         - `-d /home/nowhere` 使用-d参数指定用户的主目录，用户主目录并不是必须存在的。如果不设置会在`home`目录下建一个aezo的文件夹
         - `guest_username=aezo` 指定虚拟用户的宿主用户
         - `virtual_use_local_privs=YES` 设定虚拟用户的权限符合他们的宿主用户
-        - `user_config_dir=/etc/vsftpd/vconf` 设定虚拟用户个人Vsftp的配置文件存放路径
+        - `user_config_dir=/etc/vsftpd/vconf` 设定虚拟用户个人vsftp的配置文件存放路径
+
+4. 命令行ftp可以登录，但是xftp可以登录确无法获取目录列表，IE浏览器访问`ftp://192.168.1.1`失败。谷歌浏览器正常访问并使用
 
 
 ### git安装
@@ -70,7 +113,7 @@ tags: [CentOS, server]
     - `-bash: git: command not found` 表示尚未安装
 2. 下载安装：`yum install git`
 
-
+###
 
 
 
@@ -80,3 +123,4 @@ tags: [CentOS, server]
 参考文章
 
 [^1]: [vsftpd](http://www.cnblogs.com/hhuai/archive/2011/02/12/1952647.html)
+[^2]: [ftp 530 Permission denied](http://www.cnblogs.com/GaZeon/p/5393853.html)

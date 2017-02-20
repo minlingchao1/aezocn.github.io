@@ -52,7 +52,7 @@ Ubuntu安装方式分为两种：物理安装和虚拟安装。
 5. 选择“空闲”的磁盘，双击进行分区，主要分3个区`/`、`swap`、`/home`（还有其他分区方案）
     - `/`：根据磁盘大小，我500G的磁盘 / 设置成200G。主分区，文件类型为EXT4，挂载点`/`
     - `swap`：大小<2G。逻辑分区，文件类型为交换空间，挂载点无
-    - `/home`：大小为剩余磁盘。主分区，逻辑分区，文件类型为EXT4，挂载点`/home`
+    - `/home`：大小为剩余磁盘。逻辑分区，文件类型为EXT4，挂载点`/home`
 6. 安装启动引导的设备：选择`/`分区，如果有`/boot`分区则选择`/boot`分区
 7. 一路下一步即可安装完成，重新启动即可。
 
@@ -88,7 +88,7 @@ Ubuntu安装方式分为两种：物理安装和虚拟安装。
         - 此时启动项中还会多出一个ubuntu(TS.....)，直接选择即可启动
         - 选择移动硬盘无法启动，按照文章 [^7] 可以解决此问题，但是仍然需要按`ESC -> F9`进行选择 (结合文章 [^8] )。测试时必须将`grldr`放在`NTFS`那个分区，`menu.lst`可放在`NTFS`分区或者`sdb2`即根分区
     - 按照文章 [^7] `三、为移动使用做准备` 操作失败，且附加中的`grldr`文件不适用，可下载此文件 [http://download.csdn.net/detail/hcx25909/5464025](http://download.csdn.net/detail/hcx25909/5464025)
-4. 使用电脑`Tinkpad E425`都未安装成功，U盘安装卡在logo页面；硬盘安装则报错`Error 13 invalid or unsupported executable format`；对于已经安装好的移动硬盘也是无法启动，于是利用U盘镜像进入到`Grub`命令行(也连接了移动硬盘)，运行一下命令仍然卡在命令行启动的最后一步。其中进入命令行后可输入`root (hd`，按`Tab`键进行提示磁盘
+4. (2017-02-16已解决) 使用电脑`Tinkpad E425`都未安装成功，U盘安装卡在logo页面；硬盘安装则报错`Error 13 invalid or unsupported executable format`；对于已经安装好的移动硬盘也是无法启动，于是利用U盘镜像进入到`Grub`命令行(也连接了移动硬盘)，运行一下命令仍然卡在命令行启动的最后一步。其中进入命令行后可输入`root (hd`，按`Tab`键进行提示磁盘
 
     ```
     root (hd1,1)
@@ -96,8 +96,9 @@ Ubuntu安装方式分为两种：物理安装和虚拟安装。
     initrd (hd1,1)/initrd.img
     boot
     ```
-
-
+5. 2017-02-16解决ThinkPad E425在安装Ubuntu卡在安装界面的问题 [^9]
+    - 原因：主板BIOS设置中设置为双显卡切换的模式的时候，会出现这个问题
+    - 解决方案：开机长按F1，进入BIOS设置。在config->Display->Graphics Device 设置显卡的模式为集成显卡 Integrated Graphics
 
 ---
 
@@ -111,3 +112,4 @@ Ubuntu安装方式分为两种：物理安装和虚拟安装。
 [^6]: [http://www.njliaohua.com/lhd_01ng13y9qv7k6x46aj4e_11.html](http://www.njliaohua.com/lhd_01ng13y9qv7k6x46aj4e_11.html)
 [^7]: [http://forum.ubuntu.org.cn/viewtopic.php?p=149124#149124](http://forum.ubuntu.org.cn/viewtopic.php?p=149124#149124)
 [^8]: [http://www.educity.cn/linux.1589874.html](http://www.educity.cn/linux.1589874.html)
+[^9]: [ThinkPad E425在安装Ubuntu卡在安装界面](http://blog.csdn.net/u014466412/article/details/53666122)

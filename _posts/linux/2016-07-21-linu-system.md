@@ -37,22 +37,37 @@ tags: [linux, shell]
     - `nohup`这个表示拖机执行，最后面的`&`表示放在后台执行，默认在当前目录生成一个`nohup.out`的日志文件
     - `nohup bash startofbiz.sh > my.log 2>&1 &` 可以指定日志文件
     - `2>&1` 表示记录错误和正确的日志，日志文件位置为 `my.log`
+12. 查看内网ip `ip addr`
 
 ## 文件系统
 
 ### 文件
 
-1. 新建文件 **`vi` FileName**
-2. 删除文件 **`rm` File**
+1. 新建文件 **`touch` FileName**
+2. 编辑文件 **`vi` FileName**
+3. 删除文件 **`rm` File**
     - 提示 `rm: remove regular file 'test'?` 时，在后面输入 `yes` 回车
-3. 复制文件 **`cp` xxx.txt /usr/local/xxx** (将xxx.txt移动到/usr/local/xxx)
+4. 复制文件 **`cp` xxx.txt /usr/local/xxx** (将xxx.txt移动到/usr/local/xxx)
     - 复制文件到远程服务器：`scp /home/test root@192.168.1.1:/home` 将本地linux系统的test文件或者文件夹复制到远程的home目录下
-4. 重命名文件或目录、将文件由一个目录移入另一个目录中
+5. 重命名文件或目录、将文件由一个目录移入另一个目录中
     - **`mv` a.txt b.txt** (将a.txt重命名为b.txt)
-5. 查看文件属性 **`file` FileName**
-6. 查询文件 **`whereis` FileName**
+6. 列举文件 `ls` [^3]
+    - 列举文件详细 `ll`
+    - 列举所有文件详细 `ls -al`
+
+    > ![文件详细](/data/images/2017/02/文件详细.gif)
+    > 类型与权限如下图
+    > ![类型与权限](//data/images/2017/02/类型与权限.gif)
+    > - 第一个字符代表这个文件的类型(如目录、文件或链接文件等等)：
+    >   - [ d ]则是目录、[ - ]则是文件、[ l ]则表示为连结档(link file)、[ b ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置)、[ c ]则表示为装置文件里面的串行端口设备,例如键盘、鼠标(一次性读取装置)
+    > - 接下来的字符中,以三个为一组,且均为『rwx』 的三个参数的组合< [ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute) 要注意的是,这三个权限的位置不会改变,如果没有权限,就会出现减号[ - ]而已>
+    >   - 第一组为『文件拥有者的权限』、第二组为『同群组的权限』、第三组为『其他非本群组的权限』
+    >   - 当 s 标志出现在文件拥有者的 x 权限上时即为特殊权限。特殊权限如 SUID, SGID, SBIT
+
+7. 查看文件属性 **`file` FileName**
+8. 查询文件 **`whereis` FileName**
     - 查询可执行文件位置 **`which` exeName** (在PATH路径中寻找)
-7. 查询文件位置 `find / -name nginx.conf` 查看`nginx.conf`文件所在位置
+9. 查询文件位置 `find / -name nginx.conf` 查看`nginx.conf`文件所在位置
 
 ### 文件夹/目录
 
@@ -94,9 +109,32 @@ tags: [linux, shell]
 
 
 ## 权限系统
-1. 设置文件或目录的所有者 **`chown [-R]` 账号名称 文件或目录**
-  - `-R` 递归设置子目录下所有文件和目录
 
+### 用户
+
+1. 添加用户`useradd aezo –d /home/aezo/`
+    - 修改用户宿主目录`usermod -d /home/home_dir -U aezo`
+2. 设置密码`passwd aezo`
+3. 查看用户`vi /etc/passwd`
+
+### 文件
+
+- 文件属性`chgrp`、`chown`、`chmod`、`umask` [^3]
+    - `chgrp` 改变文件所属群组。`chgrp [-R] 组名 文件或目录`
+        - `-R` 递归设置子目录下所有文件和目录
+    - `chown` 改变文件/目录拥有者。如：`chown [-R] aezo /home/aezo`
+    - `chmod` 改变文件的权限。
+        - 数字类型改变文件权限 `chmod [-R] xyzw 文件或目录`
+            - x : 可有可无,代表的是特殊权限,即 SUID/SGID/SBIT。yzw : 就是刚刚提到的数字类型的权限属性，为 rwx 属性数值的相加
+            - 各权限的分数对照表为：r:4、w:2、x:1、SUID:4、SGID:2、SBIT:1。如rwx = 4+2+1 = 7，r-s = 4+1 = 5
+        - 符号类型改变文件权限 `chmod 对象 操作符 文件/目录`
+            - 对象取值为`ugoa`：u=user, g=group, o=others
+            - 操作符取值为：`+-=`：+ 为增加，- 为除去，= 为设定
+            - 如：`chmod u=rwx,go=rx test`、`chmod g+s,o+t test`
+    - `umask` 创建文件时的默认权限
+        - `umask` 查看umask分数值。如0022(一般umask分数值指后面三个数字)
+            - `umask -S` 查看umask。如u=rwx,g=rx,o=rx
+        - 系统默认新建文件的权限为666(3个rw)，文件夹为777(3个rwx)。最终新建文件的默认权限为系统默认权限减去umask分数值。如umask为002，新建的文件为-rw-r--r--，文件夹为drw-r-xr-x
 
 ## ssh [^2]
 
@@ -142,3 +180,4 @@ CentOS 7.1安装完之后默认已经启动了ssh服务我们可以通过以下�
 
 [^1]: [文件压缩与解压](http://www.jb51.net/LINUXjishu/43356.html)
 [^2]: [ssh登录](http://www.linuxidc.com/Linux/2016-03/129204.htm)
+[^3]: [Linux文件属性](http://www.cnblogs.com/kzloser/articles/2673790.html)
