@@ -11,7 +11,7 @@ tags: [oracle, dba]
 
 ## 简介
 
-> 注：本文中 aezo/aezo 一般指用户名/密码，local_orcl指配置的本地数据库服务名，remote_orcl指配置的远程数据库服务名
+> 注：本文中 aezo/aezo 一般指用户名/密码，local_orcl指配置的本地数据库服务名，remote_orcl指配置的远程数据库服务名。以11g为例
 
 1. 下载
     - 数据库安装包：[oracle](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html)
@@ -61,7 +61,7 @@ Oracle需要装client才能让第三方工具(如pl/sql)通过OCI(Oracle Call In
 oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库。创建了表空间并没有创建数据库实例
 
 1. 登录：`sqlplus / as sysdba`
-2. 创建表空间：`create tablespace aezocn datafile 'd:/tablespace/aezo' size 800m extent management local segment space management auto;` ，要先建好路径 d:/tablespace ，最终会在该目录下建一个 AEZO 的文件
+2. 创建表空间：`create tablespace aezocn datafile 'd:/tablespace/aezo' size 800m extent management local segment space management auto;` ，要先建好路径 d:/tablespace ，最终会在该目录下建一个 AEZO 的文件(表空间之后可以修改)
     - 删除表空间：`drop tablespace aezocn including contents and datafiles;`
 3. 创建用户：`create user aezo identified by aezo default tablespace aezocn;`
 4. 授权
@@ -113,7 +113,7 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
 ### 操作相关
 
 1. 系统
-    - `lsnrctl start` 启动监听程序
+    - `lsnrctl start` 启动监听程序。`lsnrctl status` 查看服务状态
     - `sqlplus /nolog` 以nolog身份登录，进入sql命令行
     - `startup;` 正常启动（1启动实例，2打开控制文件，3打开数据文件）
     - `shutdown immediate` 大多数情况下使用。迫使每个用户执行完当前SQL语句后断开连接
@@ -126,7 +126,7 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
         - `connect aezo/aezo@192.168.1.1:1521/orcl;`，或者使用配置好的服务名连接`conn aezo/aezo@remote_orcl`
     - pl/slq管理员登录：用户名密码留空，Connect as 选择 SYSDBA 则默认以sys登录。登录远程只需要在tnsnames.ora进行网络配置即可
 3. 用户相关
-    - 创建用户：` create user aezo identified by aezo;`
+    - 创建用户：`create user aezo identified by aezo;`
         - 默认使用的表空间是`USERS`，使用`create user aezo identified by aezo default tablespace aezocn;`可设定默认表空间
         - 删除用户：`drop user aezo cascade;`
     - 修改用户密码：`alter user scott identified by tiger;`
@@ -136,6 +136,11 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
     - `grant create session to aezo;` 授予aezo用户创建session的权限，即登陆权限
     - `grant unlimited tablespace to aezo;` 授予aezo用户使用表空间的权限
     - `grant dba to aezo;` 授予管理权限(有dba角色就有建表等权限)
+
+5. 连接数
+    - 查询数据库最大连接数：`select value from v$parameter where name = 'processes;'`、`show parameter processes`
+    - 查询数据库当前连接数：`select count(*) from v$session;`
+    - 修改数据库最大连接数：`alter system set processes = 500 scope = spfile;` 需要重启数据库
 
 ### 查询相关
 
@@ -152,8 +157,8 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
     - 查看用户下所有表：`select * from user_tables;`
     - DBA相关查询见数据库字典
 4. 数据字典 [^5]
-    - `USER_`：记录用户对象的信息，如user_tables包含用户创建的所有表，user_views，user_constraints等
-    - `ALL_`：记录用户对象的信息及被授权访问的对象信息
+    - `user_`：记录用户对象的信息，如user_tables包含用户创建的所有表，user_views，user_constraints等
+    - `all_`：记录用户对象的信息及被授权访问的对象信息
     - `DBA_`：记录数据库实例的所有对象的信息，如DBA_USERS包含数据库实例中所有用户的信息。DBA的信息包含USER和ALL的信息。大部分是视图
     - `V$`：当前实例的动态视图，包含系统管理和优化使用的视图
     - `GV_`：分布环境下所有实例的动态视图，包含系统管理和优化使用的视图，这里的GV表示 Global v$的意思
@@ -181,12 +186,12 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
         - `DBA_SEQUENCES` 所有用户序列信息
         - `DBA_EXTENTS` 所有用户段的扩展段信息
         - `DBA_OBJECTS` 所有用户对象的基本信息（包括素引，表，视图，序列等）
-6. 数据库组件相关的数据字典
+6. 数据库组件相关的数据字典(`v$`代表视图)
     - 数据库：
         - `V$DATABASE` 同义词V_$DATABASE，记录系统的运行情况
     - 控制文件：
         - `V$CONTROLFILE` 记录系统控制文件的路径信息
-        - `V$PARAMETER` 记录系统各参数的基本信息
+        - `v$parameter` 记录系统各参数的基本信息
         - `V$CONTROLFILE_RECORD_SECTION` 记录系统控制运行的基本信息
     - 数据文件：
         - `V$DATAFILE` 记录来自控制文件的数据文件信息
@@ -196,6 +201,10 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
 
 1. 常用技巧
     - 常看日志文件目录 `show parameter background_dump_dest`
+    - 在ORACLE 11g 以及ORACLE 12c中，告警日志文件的位置有了变化。主要是因为引入了ADR(Automatic Diagnostic Repository:一个存放数据库诊断日志、跟踪文件的目录)，关于ADR对应的目录位置可以通过查看v$diag_info系统视图。`select * from v$diag_info;`
+    - 在日志文件目录列举文件：`ll -rt *.trc`
+        - `*.trc`：Sql Trace Collection file，`*.trm`：Trace map (.trm) file.Trace files(.trc) are sometimes accompanied by corresponding trace map (.trm) files, which contain structural information about trace files and are used for searching and navigation.（**主要看*.trc文件**）
+        - 如：`dbcloud_cjq0_22515.trc` dbcloud为实例名，cjq0_22515为自动生成的索引
 
 2. 表空间数据文件丢失，删除表空间报错ORA-02449、ORA-01115 [^6]
     - oracle数据文件(datafile)被误删除后，只能把该数据文件offline后drop掉

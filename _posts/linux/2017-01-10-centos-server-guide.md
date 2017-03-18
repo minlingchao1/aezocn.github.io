@@ -15,6 +15,7 @@ tags: [CentOS, server]
 - `yum search vsftpd` 查找软件vsftpd源
 - Centos 7使用firewalld代替了原来的iptables
 - 云服务器一般有进站出站规则，端口开发除了系统的防火墙也要考虑进出站规则
+- **如果服务器磁盘未挂载，最好先挂载后再进行软件安装**
 
 ## 常用软件安装
 
@@ -26,7 +27,7 @@ tags: [CentOS, server]
 
 1. 下载rpm格式
   - 获取rpm链接（下载到本地后上传到服务器）： oracle -> Downloads -> Java SE -> Java Archive -> Java SE 7 -> Java SE Development Kit 7u80 -> Accept License Agreement -> jdk-7u80-linux-x64.rpm
-  - 下载jdk，运行命令：`wget http://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-linux-x64.rpm`(这个链接会下载成html格式，不行)
+  - 下载jdk，运行命令：`wget http://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-linux-x64.rpm`(这个链接会下载成html格式，**不行**)
   - `rmp -ivh jdk-7u80-linux-x64.rpm` 安装rpm文件
 2. 下载tar格式（推荐）
   - 下载tar文件 `wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz`
@@ -37,9 +38,9 @@ tags: [CentOS, server]
 - `vi /etc/profile` 使用vi打开profile文件
 - 在末尾输入并保存（注意JAVA_HOME需要按照实际路径）
   ```linux
-  export JAVA_HOME=/root/java/jre/jdk1.7.0_79
-  export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
-  export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin
+    export JAVA_HOME=/root/jdk1.7.0_79
+    export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+    export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin
   ```
   > `vi 文件名`打开某个文件进行编辑
   > - 点击键盘`insert`，进入vi编辑模式，开始编辑；
@@ -94,17 +95,19 @@ tags: [CentOS, server]
 
 3. 设置用户
     - 法一(应用程序内部使用推荐)：设置vsftpd服务的宿主用户 `useradd ftpadmin -d /home/ftproot -s /sbin/nologin`
-        - `passwd vsftpd` 给vsftpd设置密码
+        - `passwd ftpadmin` 给ftpadmin设置密码
         - 默认的vsftpd的服务宿主用户是root，但是这不符合安全性的需要。这里建立名字为ftpadmin的用户，用他来作为支持vsftpd的服务宿主用户。由于该用户仅用来支持vsftpd服务用，因此没有许可他登陆系统的必要，并设定他为不能登陆系统的用户（-s /sbin/nologin）。并设置ftpadmin的家目录为/home/ftproot(做为ftp服务器的根目录)
         - 将ftpadmin加到/etc/vsftpd/user_list中
         - 文件/home/ftproot的所有者是ftpadmin，设置权限为755，包含子目录
+            - `chown -R ftpadmin /home/ftproot`
+            - `chmod -R 755 /home/ftproot`
     - 法二：设置vsftpd虚拟宿主用户 `useradd aezo -s /sbin/nologin`
         - `-d /home/nowhere` 使用-d参数指定用户的主目录，用户主目录并不是必须存在的。如果不设置会在`home`目录下建一个aezo的文件夹
         - `guest_username=aezo` 指定虚拟用户的宿主用户
         - `virtual_use_local_privs=YES` 设定虚拟用户的权限符合他们的宿主用户
         - `user_config_dir=/etc/vsftpd/vconf` 设定虚拟用户个人vsftp的配置文件存放路径
-
-4. 命令行ftp可以登录，但是xftp可以登录确无法获取目录列表，IE浏览器访问`ftp://192.168.1.1`失败。谷歌浏览器正常访问并使用
+4. 启动服务`systemctl start vsftpd`
+5. 命令行ftp可以登录，但是xftp可以登录确无法获取目录列表，IE浏览器访问`ftp://192.168.1.1`失败。谷歌浏览器正常访问并使用
 
 
 ### git安装

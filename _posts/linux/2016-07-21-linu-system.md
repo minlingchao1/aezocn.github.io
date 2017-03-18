@@ -41,6 +41,14 @@ tags: [linux, shell]
 
 ## 文件系统
 
+### 磁盘
+
+1. 查看磁盘使用情况 `df -hl`
+2. 查看数据盘 `fdisk -l`(如：Disk：/dev/vda ... Disk：/dev/vdb表示有两块磁盘)
+3. 格式化磁盘 `mkfs.ext4 /dev/vdb` (一般云服务器买的磁盘未进行格式化文件系统和挂载)
+4. 挂载磁盘 `mount /dev/vdb /home/` 挂载磁盘到`/home`目录
+5. 修改fstab以便系统启动时自动挂载磁盘 `echo '/dev/vdb  /home ext4    defaults    0  0' >> /etc/fstab` 重新挂载了磁盘需要重启(`reboot`)
+
 ### 文件
 
 1. 新建文件 **`touch` FileName**
@@ -53,10 +61,16 @@ tags: [linux, shell]
     - **`mv` a.txt b.txt** (将a.txt重命名为b.txt)
 6. 列举文件 `ls` [^3]
     - 列举文件详细 `ll`
+        - 模糊查询：`ls *.txt`、`ll test*`、
+        - 按时间排序：`ll -rt *.txt` (`-r`表示逆序、`-t`按时间排序)
+        - 按文件大小排序：`ll -Sh` (`-S`按文件大小排序、`-h`将文件大小按1024进行转换显示)
     - 列举所有文件详细 `ls -al`
-
+    > 文件详细如下图
+    >
     > ![文件详细](/data/images/2017/02/文件详细.gif)
+    >
     > 类型与权限如下图
+    >
     > ![类型与权限](//data/images/2017/02/类型与权限.gif)
     > - 第一个字符代表这个文件的类型(如目录、文件或链接文件等等)：
     >   - [ d ]则是目录、[ - ]则是文件、[ l ]则表示为连结档(link file)、[ b ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置)、[ c ]则表示为装置文件里面的串行端口设备,例如键盘、鼠标(一次性读取装置)
@@ -124,7 +138,7 @@ tags: [linux, shell]
         - `-R` 递归设置子目录下所有文件和目录
     - `chown` 改变文件/目录拥有者。如：`chown [-R] aezo /home/aezo`
     - `chmod` 改变文件的权限。
-        - 数字类型改变文件权限 `chmod [-R] xyzw 文件或目录`
+        - 数字类型改变文件权限 `chmod [-R] xyzw 文件或目录` 如：`chmod -R 755 /home/ftproot`
             - x : 可有可无,代表的是特殊权限,即 SUID/SGID/SBIT。yzw : 就是刚刚提到的数字类型的权限属性，为 rwx 属性数值的相加
             - 各权限的分数对照表为：r:4、w:2、x:1、SUID:4、SGID:2、SBIT:1。如rwx = 4+2+1 = 7，r-s = 4+1 = 5
         - 符号类型改变文件权限 `chmod 对象 操作符 文件/目录`
@@ -162,12 +176,21 @@ CentOS 7.1安装完之后默认已经启动了ssh服务我们可以通过以下�
 
 ### SSH客户端连接服务器（秘钥认证）
 
-1. 生成公钥和私钥
-    - `ssh-keygen` 运行命令后再按三次回车会看到`RSA`（生成的秘钥默认路径为`/root/.ssh/`，会包括`id_rsa`、`id_rsa.pub`、`known_hosts` 3 个文件）
-2. 把生成的公钥发送到对方的主机上去
-    - `ssh-copy-id -i /root/.ssh/id_rsa.pub root@192.168.1.1` （自动保存在对方主机的`/root/.ssh/authorized_keys`文件中去）
-    - 输入该服务器密码实现发送
-3. 登录该服务器：`ssh 192.168.1.1` 此时不需要输入密码（默认生成密钥的服务器已经有了私钥）
+1. 命令行生成
+    - 生成公钥(.pub)和私钥(.ppk)
+        - `ssh-keygen` 运行命令后再按三次回车会看到`RSA`（生成的秘钥默认路径为`/root/.ssh/`，会包括`id_rsa`(密钥)、`id_rsa.pub`(公钥)、`known_hosts` 3 个文件）
+    - 把生成的公钥发送到对方的主机上去（在本地为服务器生成公钥）
+        - `ssh-copy-id -i /root/.ssh/id_rsa.pub root@192.168.1.1` （自动保存在对方主机的`/root/.ssh/authorized_keys`文件中去）
+        - 输入该服务器密码实现发送
+    - 登录该服务器：`ssh 192.168.1.1` 此时不需要输入密码（默认生成密钥的服务器已经有了私钥）
+    - **注：** 如果是为了让root用户登录则将公钥放入到/root/.ssh目录；如果密钥提供给其他用户登录，可将公钥放在对应的家目录，如/home/aezo/.ssh/下。`.ssh`目录默认已经存在（可通过`ll -al`查看）
+2. Putty/WinSCP 和 xshell/xftp
+    - Putty是一个Telnet、SSH、rlogin、纯TCP以及串行接口连接软件。它包含Puttygen等工具，Puttygen可用于生成公钥和密钥（还可以将如AWS亚马逊云的密钥文件.pem转换为.ppk的通用密钥文件）
+        - 在知道密钥文件时，可以通过Putty连接到服务器(命令行)，通过WinSCP连接到服务器的文件系统(FTP形式显示)
+        - Puttygen使用：`类型选择RSA，大小2048` - `点击生成` - `鼠标在空白处滑动` - `保存公钥和密钥`
+        - Putty使用：`Session的Host Name输入username@ip，端口22` - `Connection-SSH-Auth选择密钥文件` - `回到Session，在save session输入一个会话名称` - `点击保存会话` - `点击open登录服务器` - `下次可直接点击会话名称登录`
+    - xshell/xftp是一个连接ssh的客户端
+        - 登录方法：连接 - 用户身份验证 - 方法选择"public key" 公钥 - 用户名填入需要登录的用户 - 用户密钥可点击浏览生成(需要将生成的公钥保存到对应用户的.ssh目录`mv /home/aezo/id_rsa.pub /home/aezo/.ssh/authorized_keys`)。必须使用自己生成的公钥和密钥，如果AWS亚马逊云转换后的ppk文件无法直接登录。
 
 
 
