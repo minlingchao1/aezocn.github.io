@@ -51,20 +51,23 @@ tags: [linux, shell]
 
 ### 文件
 
-1. 新建文件 **`touch` FileName**
-2. 编辑文件 **`vi` FileName**
-3. 删除文件 **`rm` File**
+- `cat <fileName>` 查看文件
+- `touch <fileName>` 新建文件
+- `vi <fileName>` 编辑文件
+    - `vim <fireName>` 编辑文件，有的可能默认没有安装vim
+- `rm <file>` 删除文件
     - 提示 `rm: remove regular file 'test'?` 时，在后面输入 `yes` 回车
-4. 复制文件 **`cp` xxx.txt /usr/local/xxx** (将xxx.txt移动到/usr/local/xxx)
+- `cp xxx.txt /usr/local/xxx` 复制文件(将xxx.txt移动到/usr/local/xxx)
     - 复制文件到远程服务器：`scp /home/test root@192.168.1.1:/home` 将本地linux系统的test文件或者文件夹复制到远程的home目录下
-5. 重命名文件或目录、将文件由一个目录移入另一个目录中
-    - **`mv` a.txt b.txt** (将a.txt重命名为b.txt)
-6. 列举文件 `ls` [^3]
-    - 列举文件详细 `ll`
-        - 模糊查询：`ls *.txt`、`ll test*`、
-        - 按时间排序：`ll -rt *.txt` (`-r`表示逆序、`-t`按时间排序)
-        - 按文件大小排序：`ll -Sh` (`-S`按文件大小排序、`-h`将文件大小按1024进行转换显示)
-    - 列举所有文件详细 `ls -al`
+- 重命名文件或目录、将文件由一个目录移入另一个目录中
+    - `mv a.txt b.txt` (将a.txt重命名为b.txt)
+    - `mv a.txt /home/b.txt` 移动并重名名
+- `ls` 列举文件 [^3]
+    - `ll` 列举文件详细
+        - `ls *.txt`、`ll test*` 模糊查询
+        - `ll -rt *.txt` 按时间排序 (`-r`表示逆序、`-t`按时间排序)
+        - `ll -Sh` 按文件大小排序 (`-S`按文件大小排序、`-h`将文件大小按1024进行转换显示)
+    - `ls -al` 列举所有文件详细
     > 文件详细如下图
     >
     > ![文件详细](/data/images/2017/02/文件详细.gif)
@@ -78,10 +81,10 @@ tags: [linux, shell]
     >   - 第一组为『文件拥有者的权限』、第二组为『同群组的权限』、第三组为『其他非本群组的权限』
     >   - 当 s 标志出现在文件拥有者的 x 权限上时即为特殊权限。特殊权限如 SUID, SGID, SBIT
 
-7. 查看文件属性 **`file` FileName**
-8. 查询文件 **`whereis` FileName**
-    - 查询可执行文件位置 **`which` exeName** (在PATH路径中寻找)
-9. 查询文件位置 `find / -name nginx.conf` 查看`nginx.conf`文件所在位置
+- `file <fileName>` 查看文件属性
+- `whereis <fileName>` 查询文件
+    - `which <exeName>` 查询可执行文件位置 (在PATH路径中寻找)
+- `find / -name nginx.conf` 查询文件位置(查看`nginx.conf`文件所在位置)
 
 ### 文件夹/目录
 
