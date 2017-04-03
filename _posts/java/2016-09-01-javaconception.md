@@ -6,6 +6,9 @@ categories: java
 tags: [comception]
 ---
 
+* 目录
+{:toc}
+
 ## 未分类
 
 - `EJB`(Enterprise JavaBean)是sun的JavaEE服务器端组件模型。

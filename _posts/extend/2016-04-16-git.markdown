@@ -68,13 +68,14 @@ tag: [git]
 	- `git branch 分支名` 创建一个新的分支。如果此分支和 master 是同一级分支（及在处于 master 时创建的分支），那么他们指向同一个 commit 对象
 	- `git checkout -b <localBranchName>` 创建一个本地分支并且换到此分支（是`git branch 分支名` 和 `git checkout 分支名`的合并命令）
 	- `git checkout -b <localBranchName> <remotesBranchName>` 相当于检出远程的某个分支到本地，远程分支名如origin/b1(使用 `git branch -a` 查看时显示为remotes/origin/b1)
-		- `git checkout -b <localBranchName> --track <remotesBranchName>` 检出分支并创建本地分支与远程分支的追踪
+		- **`git checkout -b <localBranchName> --track <remotesBranchName>`** 检出分支并创建本地分支与远程分支的追踪
 		- 勿使用 `git checkout 远程分支名` 命令会是当前HEAD变为一个游离的HEAD（即现在HEAD指向的是一个没有分支名字的修订版本，游离于已知的所有分支之外，如`HEAD detached at origin/b1`）
 	- `git push origin <branch>` 创建远程分支
 3. 切换分支
 	- `git checkout 分支名` 切换到此分支（*Switched to branch '分支名'*），此时 HEAD 指向此分支；并且本地磁盘（working 区）的内容会显示此分支的文件
 4. 合并分支
 	- `git merge 子分支名` 将子分支名合并到主分支，合并前必须切换到主分支。（子分支的文件会替换掉主分支的文件）
+5. 跟踪分支 `git branch --set-upstream-to=<remotesBranchName> <localBranchName>` 之后可以使用`git push/pull`直接对相应分支进行操作
 5. 删除分支
 	- `git branch -d 分支名` 删除此分支（只能删除除当前分支以外的分支；如果当前分支有一次提交，则需要将此分支合并到主分支之后再进行删除）
 
@@ -116,7 +117,7 @@ tag: [git]
 	- `git pull origin develop` 获取远程develop分支(使用 `git branch -a` 查看时显示为remotes/origin/develop)
 	- `git pull origin master:master` 取回远程的master分支到本地master分支
 - `git push 远程仓库地址` 将本地仓库内容同步到远程仓库，回车后输入用户名和密码即可
--
+
 ### 查看git状态和文件差别
 
 利用`git status`查看文件状态，`git status -s`显示文件扼要信息
@@ -164,7 +165,7 @@ tag: [git]
 - `git log`查看提交日志，`Ctrl+Z` 退出查看
 	- `git log --oneline` 可以显示更加短小的提交ID
 	- `git log --graph` 显示何时出现了分支和合并等信息
-	- `git log --pretty=raw` 显示提交对象的parent属性
+	- `git log --pretty=raw` 显示所有提交对象的parent属性
 	- `git reflog` 查看每个提交版本信息(排在上面的为最新版本)
 
 - `git cat-file -p 哈希码(或简写)或者对象名` 展示此对象的详细信息
@@ -187,6 +188,10 @@ tag: [git]
 	- 以方括号`[]`包含单个字符的匹配列表
 	- 以叹号`!`表示不忽略(跟踪)匹配到的文件或目录
 3. `echo '*~' > .gitignore`将文本`*~`保存到文件 .gitignore 中，再将此文件 add 并 commit 到 git 中即可，表示进行 git 相关操作时忽略以`~`结尾的文件
+4. 已经提交的文件(git已经管理了此文件，仓库已经存在此文件)无法忽略解决办法：
+	- `git rm -r --cached my.txt` 将此文件的缓存在A分支删除并提交，如果my.txt有被修改则A分支还会保存此文件否则本地也会删除，远程将无此文件
+	- 法一：切换到B分支，将my.txt备份，将A分支提交拉取到B分支，此时B分支也会没有此文件，再将my.txt加入进来
+	- 法二：切换到B分支，修改my.txt，执行`git rm -r --cached my.txt`即可(拉取B进来也不会冲突)
 
 #### 重命名文件
 
