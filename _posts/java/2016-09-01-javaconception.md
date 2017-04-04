@@ -102,6 +102,7 @@ tags: [comception]
 
       BASE模型是传统ACID模型的反面，不同与ACID，BASE强调牺牲高一致性，从而获得可用性，数据允许在一段时间内的不一致，只要保证最终一致就可以了。
 
+- `CLI` 命令行界面（command-line interface）
 
 
 ---
