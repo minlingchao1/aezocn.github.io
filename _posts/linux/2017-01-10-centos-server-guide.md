@@ -65,11 +65,10 @@ tags: [CentOS, server]
         #禁止匿名用户上传
         anon_upload_enable=NO
 
-        #禁止用户登出自己的FTP主目录
-        chroot_list_enable=NO
-        #允许用户登出到某些目录，那么凡是加在文件chroot_list中的用户都是不受限止的用户即可以浏览其主目录的上级目录
-        #chroot_list_enable=YES
-        #chroot_list_file=/etc/vsftpd/chroot_list
+        #禁止用户登出自己的FTP主目录(YES表示禁止登出主目录，NO表示不做限制)
+        chroot_list_enable=YES
+        #如果chroot_list_enable=YES，那么凡是加在文件chroot_list中的用户都是受限止的用户，即不可浏览其主目录的上级目录
+        chroot_list_file=/etc/vsftpd/chroot_list
 
         #设定20端口进行通信，对外默认是21端口。防火墙要开放20、21端口
         #connect_from_port_20=YES
@@ -98,6 +97,7 @@ tags: [CentOS, server]
         - `passwd ftpadmin` 给ftpadmin设置密码
         - 默认的vsftpd的服务宿主用户是root，但是这不符合安全性的需要。这里建立名字为ftpadmin的用户，用他来作为支持vsftpd的服务宿主用户。由于该用户仅用来支持vsftpd服务用，因此没有许可他登陆系统的必要，并设定他为不能登陆系统的用户（-s /sbin/nologin）。并设置ftpadmin的家目录为/home/ftproot(做为ftp服务器的根目录)
         - 将ftpadmin加到/etc/vsftpd/user_list中
+        - 将ftpadmin加到/etc/vsftpd/chroot_list中
         - 文件/home/ftproot的所有者是ftpadmin，设置权限为755，包含子目录
             - `chown -R ftpadmin /home/ftproot`
             - `chmod -R 755 /home/ftproot`
@@ -107,7 +107,7 @@ tags: [CentOS, server]
         - `virtual_use_local_privs=YES` 设定虚拟用户的权限符合他们的宿主用户
         - `user_config_dir=/etc/vsftpd/vconf` 设定虚拟用户个人vsftp的配置文件存放路径
 4. 启动服务`systemctl start vsftpd`
-5. 命令行ftp可以登录，但是xftp可以登录确无法获取目录列表，IE浏览器访问`ftp://192.168.1.1`失败。谷歌浏览器正常访问并使用
+5. 命令行ftp可以登录，但是xftp可以登录确无法获取目录列表，IE浏览器访问`ftp://192.168.1.1`失败。谷歌浏览器正常访问并使用，或者ftp客户端登录
 
 
 ### git安装
