@@ -13,9 +13,33 @@ tags: [IDE]
 
 ## 常用设置
 
+### java web项目配置 [^1]
+
+1. 进入到Project Structure：`File - Project Structure`
+2. 配置步骤
+    - `Project` 项目级别
+        - 主要是project compiler output的位置(src的编译位置)：如`\myproject\WebRoot\WEB-INF\classes`，为对应WEB-INF下的classes目录
+    - `Modules` 模块级别，项目可能包含多个模块，不同的模块可设置对应的编译输入路径和依赖。一般项目就一个模块
+        - `Sources` 将src目录标记成Sources目录
+        - `Paths` 使用modules compiler output path，设置路径为`\myproject\WebRoot\WEB-INF\classes`
+        - `Dependencies` 加入jdk、tomcat、其他依赖jar(如`\WEB-INF\lib`中的jar)
+    - `Libraries` 如将`\WEB-INF\lib`中的所有jar定义一个目录，直接加入到`Dependencies`中
+    - `Facets`
+        - 点击`+` - `web`
+        - `Web Module Deployment Descriptor`为`\myproject\WebRoot\WEB-INF\web.xml`
+        - `Web Resource`为`\myproject\WebRoot`
+        - 勾选`Source Roots`
+    - `Artifacts` 根据上面的配置，最终打包成一个war包部署到tomcat中
+        - 点击`+` - `Web Application: Exploded` - `From Modules`
+        - `Output directory`为`\testStruts2\WebRoot`
+3. `Run configuration`配置tomcat
+    - `JRE`填写jdk路径
+    - `Deployment`中将刚刚的war配置进入
+    - 在`Before launch`中加入Build这个war包
+
 ## IDEA开发PHP程序
 
-### 安装php插件
+### 安装php插件 [^2]
 
 1. setting -> plugins -> browse repositories -> 输入php
 2. 没看到的话，往下翻几页看看，找到PHP(LANGUAGES)，安装次数较多的那个
@@ -73,10 +97,9 @@ tags: [IDE]
 
 
 
+---
 
-------------
+参考文章
 
-
-> 参考文章：
->
-> [1] [intellij idea12 搭建php开发环境](http://blog.csdn.net/ysjjovo/article/details/13292787)
+[^1]: [java web项目配置](https://github.com/judasn/IntelliJ-IDEA-Tutorial/blob/newMaster/eclipse-java-web-project-introduce.md)
+[^2]: [intellij idea12 搭建php开发环境](http://blog.csdn.net/ysjjovo/article/details/13292787)

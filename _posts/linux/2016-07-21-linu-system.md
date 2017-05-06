@@ -32,11 +32,13 @@ tags: [linux, shell]
     - `netstat -lnp` 查看所有进场信息(端口、PID)
     - 强制杀进程 `kill -s 9 PID`
 10. 运行sh文件：进入到该文件目录，运行`./xxx.sh`
-11. 后台运行sh文件：`nohup bash startofbiz.sh &`
-    - 利用客户端连接服务器，执行的程序当客户端退出后，服务器的程序也停止了，下面是解决版本
-    - `nohup`这个表示拖机执行，最后面的`&`表示放在后台执行，默认在当前目录生成一个`nohup.out`的日志文件
-    - `nohup bash startofbiz.sh > my.log 2>&1 &` 可以指定日志文件
-    - `2>&1` 表示记录错误和正确的日志，日志文件位置为 `my.log`
+11. 脱机后台运行sh文件：`nohup bash startofbiz.sh > my.log 2>&1 &`
+    - 可解决利用客户端连接服务器，执行的程序当客户端退出后，服务器的程序也停止了
+    - `nohup`这个表示脱机执行，默认在当前目录生成一个`nohup.out`的日志文件
+    - `&` 最后面的&表示放在后台执行
+    - `startofbiz.sh > my.log` 表示startofbiz.sh的输出重定向到my.log
+    - `2>&1` 表示将错误输出重定向到标准输出
+        - `0`：键盘输入；`1`：标准输入；`2`：错误输出
 12. 查看内网ip `ip addr`
 
 ## 文件系统
@@ -88,10 +90,10 @@ tags: [linux, shell]
 
 ### 文件夹/目录
 
-1. 新建文件夹 **`mkdir` DirName** (或者用绝对路径 `mkdir /usr/local/DirName`)
+1. 新建文件夹 **`mkdir [DirName]`** (或者用绝对路径 `mkdir /usr/local/DirName`)
 2. 删除文件夹
-  - 删除文件夹 **`rmdir` DirName** (如果文件夹不为空则无法删除)
-  - 强制删除文件夹和其子文件夹 `rm -rf`
+  - 删除文件夹 `rmdir [DirName]` (如果文件夹不为空则无法删除)
+  - 强制删除文件夹和其子文件夹 **`rm -rf [DirName]`**
   > -r 就是向下递归，不管有多少级目录，一并删除
   > -f 就是直接强行删除，不作任何提示的意思
 
@@ -105,24 +107,68 @@ tags: [linux, shell]
 5. 查看目录结构 `ls`
   - 查看目录结构包括隐藏文件 `ls -a`
 
-### 压缩包 [^1]
+### 压缩包(推荐tar) [^1]
 
 1. 解压
+    - `tar -xvf archive.tar` 解压tar包(tar不存在乱码问题)
+        - 参数说明
+            - `-x` 解开一个压缩文件的参数指令
+            - `-v` 压缩的过程中显示文件
+            - `-c` 建立一个压缩文件的参数指令(create 的意思)
+            - `-p` 使用原文件的原来属性（属性不会依据使用者而变）
+            - `-P` 可以使用绝对路径来压缩
+            - `-t` 查看 tarfile 里面的文件
+        - 常用命令
+            - `tar -xvf archive.tar -C /tmp` 将压缩包释放到 /tmp目录下
+            - `tar -xzvf archive.tar.gz` 解压tar.gz
+            - `tar -xjvf archive.tar.bz2` 解压tar.bz2
+            - `tar -xZvf archive.tar.Z` 解压tar.Z
     - `unzip file.zip` 解压zip
-    - `tar –xvf archive.tar` 解压tar包
-    - `tar -xvf archive.tar -C /tmp` 将压缩包释放到 /tmp目录下
-    - `tar -xzvf archive.tar.gz` 解压tar.gz
-    - `tar -xjvf archive.tar.bz2` 解压tar.bz2
-    - `tar –xZvf archive.tar.Z` 解压tar.Z
     - `unrar e archive.rar` 解压rar
 2. 压缩
-    - `tar -cvf aezocn.rar file1 file2 dir1` 同时压缩 file1, file2 以及目录 dir1
+    - `tar -cvf aezocn.tar file1 file2 dir1` 同时压缩 file1, file2 以及目录 dir1。windows可使用7-zip
     - `tar –cvf aezocn.tar *.jpg` 将目录里所有jpg文件打包成aezocn.jpg
     - `tar –czf aezocn.tar.gz *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为jpg.tar.gz
     - `tar –cjf aezocn.tar.bz2 *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包，命名为jpg.tar.bz2
     - `tar –cZf aezocn.tar.Z *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用compress压缩，生成一个umcompress压缩过的包，命名为jpg.tar.Z
     - `rar a aezocn.rar *.jpg` rar格式的压缩，需要先下载rar for linux
     - `zip aezocn.zip *.jpg` zip格式的压缩，需要先下载zip for linux
+3. unzip乱码
+    - 使用python解决(只能解决部分问题)
+        - `vi pyzip` 新建文件pyzip
+        - 加入代码
+
+        ```python
+        #!/usr/bin/env python
+        # -*- coding: utf-8 -*-
+        # pyzip.py
+
+        import os
+        import sys
+        import zipfile
+
+        print "Processing File " + sys.argv[1]
+
+        file=zipfile.ZipFile(sys.argv[1],"r");
+        for name in file.namelist():
+            utf8name=name.decode('gbk')
+            print "Extracting " + utf8name
+            pathname = os.path.dirname(utf8name)
+            if not os.path.exists(pathname) and pathname!= "":
+                os.makedirs(pathname)
+            data = file.read(name)
+            if not os.path.exists(utf8name):
+                fo = open(utf8name, "w")
+                fo.write(data)
+                fo.close
+        file.close()
+        ```
+
+        - `chmod +x pyzip` 将pyzip设置成可执行文件
+        - `./uzip /home/xxxx.zip`
+
+4. rar安装问题，unzip乱码问题
+
 
 
 ## 权限系统
@@ -145,13 +191,18 @@ tags: [linux, shell]
             - x : 可有可无,代表的是特殊权限,即 SUID/SGID/SBIT。yzw : 就是刚刚提到的数字类型的权限属性，为 rwx 属性数值的相加
             - 各权限的分数对照表为：r:4、w:2、x:1、SUID:4、SGID:2、SBIT:1。如rwx = 4+2+1 = 7，r-s = 4+1 = 5
         - 符号类型改变文件权限 `chmod 对象 操作符 文件/目录`
-            - 对象取值为`ugoa`：u=user, g=group, o=others
+            - 对象取值为`ugoa`：u=user, g=group, o=others, a=all
             - 操作符取值为：`+-=`：+ 为增加，- 为除去，= 为设定
             - 如：`chmod u=rwx,go=rx test`、`chmod g+s,o+t test`
     - `umask` 创建文件时的默认权限
         - `umask` 查看umask分数值。如0022(一般umask分数值指后面三个数字)
             - `umask -S` 查看umask。如u=rwx,g=rx,o=rx
         - 系统默认新建文件的权限为666(3个rw)，文件夹为777(3个rwx)。最终新建文件的默认权限为系统默认权限减去umask分数值。如umask为002，新建的文件为-rw-r--r--，文件夹为drw-r-xr-x
+    - 常用命令
+        - `find . -type d -exec chmod 755 {} \;` 修改当前目录的所有目录为775
+        - `find . -type f -exec chmod 644 {} \;` 修改当前目录的所有文件为644
+
+
 
 ## ssh [^2]
 
@@ -195,7 +246,28 @@ CentOS 7.1安装完之后默认已经启动了ssh服务我们可以通过以下�
     - xshell/xftp是一个连接ssh的客户端
         - 登录方法：连接 - 用户身份验证 - 方法选择"public key" 公钥 - 用户名填入需要登录的用户 - 用户密钥可点击浏览生成(需要将生成的公钥保存到对应用户的.ssh目录`mv /home/aezo/id_rsa.pub /home/aezo/.ssh/authorized_keys`)。必须使用自己生成的公钥和密钥，如果AWS亚马逊云转换后的ppk文件无法直接登录。
 
+## 定时任务 [^4]
 
+1. 配置式
+    - 添加定时配置：`sudo vim /etc/crontab`，配置说明如下，如：`30 2 1 * * root /sbin/reboot`表示每月第一天的第2个小时的第30分钟，使用root执行命令/sbin/reboot(重启)
+
+        ```shell
+        # Example of job definition:
+        # .---------------- minute (0 - 59)
+        # |  .------------- hour (0 - 23)
+        # |  |  .---------- day of month (1 - 31)
+        # |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+        # |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+        # |  |  |  |  |
+        # *  *  *  *  * user-name  command to be executed
+        # (1) 其中用户名一般可以省略
+        # (2) 精确到秒解决方案, 以下3行表示每20秒执行一次
+        # * * * * * user-name my-command
+        # * * * * * sleep 20; user-name my-command
+        # * * * * * sleep 40; user-name my-command
+        ```
+    - `systemctl reload crond` 重新加载配置
+    - `systemctl restart crond` 重启crond
 
 
 
@@ -207,3 +279,4 @@ CentOS 7.1安装完之后默认已经启动了ssh服务我们可以通过以下�
 [^1]: [文件压缩与解压](http://www.jb51.net/LINUXjishu/43356.html)
 [^2]: [ssh登录](http://www.linuxidc.com/Linux/2016-03/129204.htm)
 [^3]: [Linux文件属性](http://www.cnblogs.com/kzloser/articles/2673790.html)
+[^4]: [定时任务](http://www.360doc.com/content/16/1013/10/15398874_598063092.shtml)

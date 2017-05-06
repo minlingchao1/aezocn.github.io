@@ -43,17 +43,19 @@ tag: [git]
 
 ### repository
 
-1. 创建repository
+1. 创建repository(并关联远程仓库)
 	- `cd d:/git/demo/`进入到项目文件夹（可使用`mkdir 文件夹名`在当前目录创建文件夹或者手动创建）
 
 		> - 此时git bash上显示`smalle@ST-008 MINGW64 /d/git/demo`（直接在demo目录`右键-Git Bash Here`也是这个显示）
 		> - 如果直接点击桌面上的git图标进入命令行显示的是`smalle@ST-008 MINGW64 ~`
 		> - 创建之后，d:/git/demo/目录就是后面提到到 working 区（其实就是本地磁盘）
 
-	- `$ git init`初始化项目，提示 Initialized empty Git repository in D:/git/demo/.git/
-(上传 $ git remote add origin https://github.com/oldinaction/jekyll_demo.git  $ git push origin master)
-
-		> 此时就产生了后面提到的 staging 和 history 区
+	- `git init` 初始化项目，提示 Initialized empty Git repository in D:/git/demo/.git/
+		- 此时就产生了后面提到的 staging 和 history 区
+	- `git add .` 添加所有文件到本地索引
+	- `git commit -am '初始化提交'` 提交修改到本地仓库
+	- `git remote add origin https://github.com/oldinaction/jekyll_demo.git` 添加远程仓库地址，保存在origin变量中
+	- `git push origin master` 按照前一条命令中origin给定的git远程地址推送到远程仓库的master分支（容易和远程产生冲突）
 
 2. 克隆repository
 	- `git clone https://github.com/UserName/ProjectName`，这是利用https方式克隆，还有其他如git、ssh等方式（克隆后git会在当前目录新建一个文件夹为 "ProjectName" 的项目）
@@ -120,27 +122,26 @@ tag: [git]
 
 ### 查看git状态和文件差别
 
-利用`git status`查看文件状态，`git status -s`显示文件扼要信息
-
-- Git内部只有三个状态，分别是未修改unmodified、修改modified、暂存staged。对于没有加入Git控制的文件，可以视为第四种状态未跟踪untracked
-- 提示 *Untracked files* 表示没有向 git 进行登记，需要增加到 git 进行版本控制（下面文件显示红色）。使用`git add <file>` / `git add .`
-- 提示 *Changes to be committed* 表示文件被修改，等待提交（下面文件显示绿色）。使用`git commit -m '提交时的备注'`
-- 提示 *nothing to commit, working directory clean* 表示没有文件需要提交
-- 运行`git status -s`命令，显示的标识位信息分别表示staging 和 working两个区
-	- `A_`其中 A 表示 staging 中新加的文件，空格表示 working 没有变化（其中`_`表示空格）
-	- `_M`其中空格表示 staging 中没有改变，M 表示 working 做了修改
-	- `MM`表示 staging 和 working 都发生了变化
-	- `D_`表示 staging 中此文件被删除了
-	- `R_`表示 staging 中此文件进行了重命名
-	- `??`表示此文件没有被 git 进行版本控制
-
-利用`git diff`查看文件差别，`git diff --stat`是对文件差别的扼要描述
-
-- `-红色字体`表示删除的
-- `+绿色字体`表示增加的
-- `git diff`默人对`git status -s`的第二个标识位（working）进行详细描述；
--  使用`git diff --staged` / `git diff --cached`则是对第一个标识位（staging）进行详细描述；
-- 使用`git diff HEAD`则是对 history 区此文件的描述
+- 利用`git status`查看文件状态，`git status -s`显示文件扼要信息
+	- Git内部只有三个状态，分别是未修改unmodified、修改modified、暂存staged。对于没有加入Git控制的文件，可以视为第四种状态未跟踪untracked
+	- 提示 *Untracked files* 表示没有向 git 进行登记，需要增加到 git 进行版本控制（下面文件显示红色）。使用`git add <file>` / `git add .`
+	- 提示 *Changes to be committed* 表示文件被修改，等待提交（下面文件显示绿色）。使用`git commit -m '提交时的备注'`
+	- 提示 *nothing to commit, working directory clean* 表示没有文件需要提交
+	- 运行`git status -s`命令，显示的标识位信息分别表示staging 和 working两个区
+		- `A_`其中 A 表示 staging 中新加的文件，空格表示 working 没有变化（其中`_`表示空格）
+		- `_M`其中空格表示 staging 中没有改变，M 表示 working 做了修改
+		- `MM`表示 staging 和 working 都发生了变化
+		- `D_`表示 staging 中此文件被删除了
+		- `R_`表示 staging 中此文件进行了重命名
+		- `??`表示此文件没有被 git 进行版本控制
+- 利用`git diff`查看文件差别，`git diff --stat`是对文件差别的扼要描述
+	- `-红色字体`表示删除的
+	- `+绿色字体`表示增加的
+	- `git diff`默人对`git status -s`的第二个标识位（working）进行详细描述；
+	-  使用`git diff --staged` / `git diff --cached`则是对第一个标识位（staging）进行详细描述；
+	- 使用`git diff HEAD`则是对 history 区此文件的描述
+- 注意事项
+	- git不监控文件权限属性变化
 
 ### 移除文件
 
@@ -189,6 +190,7 @@ tag: [git]
 	- 以叹号`!`表示不忽略(跟踪)匹配到的文件或目录
 3. `echo '*~' > .gitignore`将文本`*~`保存到文件 .gitignore 中，再将此文件 add 并 commit 到 git 中即可，表示进行 git 相关操作时忽略以`~`结尾的文件
 4. 已经提交的文件(git已经管理了此文件，仓库已经存在此文件)无法忽略解决办法：
+	- 将此文件加到.gitignore中
 	- `git rm -r --cached my.txt` 将此文件的缓存在A分支删除并提交，如果my.txt有被修改则A分支还会保存此文件否则本地也会删除，远程将无此文件
 	- 法一：切换到B分支，将my.txt备份，将A分支提交拉取到B分支，此时B分支也会没有此文件，再将my.txt加入进来
 	- 法二：切换到B分支，修改my.txt，执行`git rm -r --cached my.txt`即可(拉取B进来也不会冲突)
