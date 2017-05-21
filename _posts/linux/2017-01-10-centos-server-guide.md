@@ -116,7 +116,16 @@ tags: [CentOS, server]
     - `-bash: git: command not found` 表示尚未安装
 2. 下载安装：`yum install git`
 
-###
+### htop安装
+
+1. htop是比top功能更多的进程管理工具
+2. `yum install htop` 安装
+3. `htop`查看进程信息(命令行上显示的界面可直接鼠标点击操作)
+4. 小技巧
+    - 点击Tree/Sorted可切换视图
+    - 选中一行，按下键可查看更多进程
+    - Nice：指的是nice值，这样就可以提高/降低对应进程的优先级
+
 
 
 

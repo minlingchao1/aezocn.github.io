@@ -11,35 +11,36 @@ tags: [linux, shell]
 
 ## 系统命令
 
-1. 查看系统信息
+- 查看系统信息
   - 查看操作系统版本 `cat /proc/version`
   > 如腾讯云服务器 `Linux version 3.10.0-327.36.3.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-4) (GCC) ) #1 SMP Mon Oct 24 16:09:20 UTC 2016` 中的 `3.10.0` 表示内核版本 `x86_64` 表示是64位系统
 
   - 查看CentOS版本 `cat /etc/redhat-release` 如：CentOS Linux release 7.2.1511 (Core)
   - 查看内存 `grep MemTotal /proc/meminfo`
 
-2. 查看启动的服务(不包括系统的)：`chkconfig --list`
-3. `shutdown -r now` root登录可立刻重启
-4. `df -hl` 查看磁盘使用情况
-5. `netstat -lnp` 查看所有进场信息(端口、PID)
+- 查看启动的服务(不包括系统的)：`chkconfig --list`
+- `shutdown -r now` root登录可立刻重启
+- `df -hl` 查看磁盘使用情况
+- `netstat -lnp` 查看所有进场信息(端口、PID)
     - `ss -ant` CentOS 7 查看所有监听端口
     - `netstat -tnl` 查看开放的端口
     - `netstat -lnp | grep tomcat` 查看含有tomcat相关的进程
-6. 安装程序包 `rpm -ivh 安装包名`
-7. 查看安装程序(支持模糊查询) `rpm -qa | grep vsftpd` 查看是否安装vsftpd(一款ftp服务器软件)
-8. 检查网络连接 `ping 192.168.1.1`(或者`ping www.baidu.com`)，检查端口：`telnet 192.168.1.1 8080`
-9. 关闭某个PID进程 `kill PID`
+- 安装程序包 `rpm -ivh 安装包名`
+- 查看安装程序(支持模糊查询) `rpm -qa | grep vsftpd` 查看是否安装vsftpd(一款ftp服务器软件)
+- 检查网络连接 `ping 192.168.1.1`(或者`ping www.baidu.com`)，检查端口：`telnet 192.168.1.1 8080`
+- 查看进程信息 `top`, 推荐安装功能更强大的htop
+- 关闭某个PID进程 `kill PID`
     - `netstat -lnp` 查看所有进场信息(端口、PID)
     - 强制杀进程 `kill -s 9 PID`
-10. 运行sh文件：进入到该文件目录，运行`./xxx.sh`
-11. 脱机后台运行sh文件：`nohup bash startofbiz.sh > my.log 2>&1 &`
+- 运行sh文件：进入到该文件目录，运行`./xxx.sh`
+- 脱机后台运行sh文件：`nohup bash startofbiz.sh > my.log 2>&1 &`
     - 可解决利用客户端连接服务器，执行的程序当客户端退出后，服务器的程序也停止了
     - `nohup`这个表示脱机执行，默认在当前目录生成一个`nohup.out`的日志文件
     - `&` 最后面的&表示放在后台执行
     - `startofbiz.sh > my.log` 表示startofbiz.sh的输出重定向到my.log
     - `2>&1` 表示将错误输出重定向到标准输出
         - `0`：键盘输入；`1`：标准输入；`2`：错误输出
-12. 查看内网ip `ip addr`
+- 查看内网ip `ip addr`
 
 ## 文件系统
 
@@ -112,12 +113,23 @@ tags: [linux, shell]
 1. 解压
     - `tar -xvf archive.tar` 解压tar包(tar不存在乱码问题)
         - 参数说明
-            - `-x` 解开一个压缩文件的参数指令
-            - `-v` 压缩的过程中显示文件
-            - `-c` 建立一个压缩文件的参数指令(create 的意思)
-            - `-p` 使用原文件的原来属性（属性不会依据使用者而变）
-            - `-P` 可以使用绝对路径来压缩
-            - `-t` 查看 tarfile 里面的文件
+            - 独立命令，压缩解压都要用到其中一个，可以和别的命令连用但只能用其中一个
+                - `-c`: 建立压缩档案
+                - `-x`：解压
+                - `-t`：查看 tarfile 里面的文件
+                - `-r`：向压缩归档文件末尾追加文件
+                - `-u`：更新原压缩包中的文件
+            - 必须
+                - `-f`：使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名
+            - 可选
+                - `-z`：有gzip属性的
+                - `-j`：有bz2属性的
+                - `-Z`：有compress属性的
+                - `-v`：显示所有过程
+                - `-O`：将文件解开到标准输出    
+                - `-p` 使用原文件的原来属性（属性不会依据使用者而变）
+                - `-P` 可以使用绝对路径来压缩        
+
         - 常用命令
             - `tar -xvf archive.tar -C /tmp` 将压缩包释放到 /tmp目录下
             - `tar -xzvf archive.tar.gz` 解压tar.gz
@@ -126,11 +138,11 @@ tags: [linux, shell]
     - `unzip file.zip` 解压zip
     - `unrar e archive.rar` 解压rar
 2. 压缩
+    - **`tar -czf aezocn.tar.gz *.jpg dir1`** 将此目录所有jpg文件和dir1目录打包成aezocn.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为aezocn.tar.gz(体积会小很多：1/10)
     - `tar -cvf aezocn.tar file1 file2 dir1` 同时压缩 file1, file2 以及目录 dir1。windows可使用7-zip
-    - `tar –cvf aezocn.tar *.jpg` 将目录里所有jpg文件打包成aezocn.jpg
-    - `tar –czf aezocn.tar.gz *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为jpg.tar.gz
-    - `tar –cjf aezocn.tar.bz2 *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包，命名为jpg.tar.bz2
-    - `tar –cZf aezocn.tar.Z *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用compress压缩，生成一个umcompress压缩过的包，命名为jpg.tar.Z
+    - `tar -cvf aezocn.tar *.jpg` 将目录里所有jpg文件打包成aezocn.jpg
+    - `tar -cjf aezocn.tar.bz2 *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包，命名为jpg.tar.bz2
+    - `tar -cZf aezocn.tar.Z *.jpg` 将目录里所有jpg文件打包成aezocn.tar后，并且将其用compress压缩，生成一个umcompress压缩过的包，命名为jpg.tar.Z
     - `rar a aezocn.rar *.jpg` rar格式的压缩，需要先下载rar for linux
     - `zip aezocn.zip *.jpg` zip格式的压缩，需要先下载zip for linux
 3. unzip乱码

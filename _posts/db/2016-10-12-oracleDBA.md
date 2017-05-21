@@ -26,12 +26,16 @@ tags: [oracle, dba]
 
 ## oracle及pl/sql安装和使用
 
-- oracle_home为`D:/java/oracle/product/11.2.0/dbhome_1`，`%oracle_home%/bin`中为一些可执行程序（如：导入imp.exe、导出exp.exe）
+- ORACLE_HOME为`D:/java/oracle/product/11.2.0/dbhome_1`，`%ORACLE_HOME%/bin`中为一些可执行程序（如：导入imp.exe、导出exp.exe）
+- 这个只是服务器端才会使用的到
 
 ### pl/sql安装
 
-Oracle需要装client才能让第三方工具(如pl/sql)通过OCI(Oracle Call Interface)来连接，安装包可以去oracle官网下载Instant Client
-
+Oracle需要装client才能让第三方工具(如pl/sql)通过OCI(Oracle Call Interface)来连接，安装包可以去oracle官网下载Instant Client。
+- 将`instantclient_10_2`(oracle的客户端)，复制到oracle安装目录
+- 安装`pl/sql developer`
+- 配置`pl/sql developer`首选项中连接项。设置oracle_home为instantclient_10_2的路径，oci为instantclient_10_2下的oci.dll
+- 环境变量中设置`TNS_ADMIN=D:\java\oracle\product\instantclient_10_2`，并在path末尾加入`%TNS_ADMIN%;`(否则容易报`TNS-12541`)
 
 ### 网络配置
 
