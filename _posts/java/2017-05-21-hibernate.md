@@ -156,6 +156,7 @@ tags: [ssh, orm]
     - `@IdClass(TeacherPK.class)` 定义联合主键的类
 
         > 如 `cn.aezo.hibernate.hello.Teacher`
+
         - `@EmbeddedlD`/`@ Embeddable`也可以定义联合主键
     - `@SequenceGenerator(name = "teacherSeq", sequenceName = "teacherSeq_db")` Id生成策略使用能够sequence
         - 在主键上加注解 `@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "teacherSeq")`
@@ -172,6 +173,7 @@ tags: [ssh, orm]
     - `@Enumerated(EnumType.STRING)` 声明枚举类型。EnumType.STRING表示在表中生成的字段类型是varchar;EnumType.ORDINAL表示表中生成的字段类型是int，并且拿枚举的下表存储
 
         > 如 `test/cn.aezo.hibernate.hello.TeacherTest`
+
 - annotation字段映射位置：可以在field上或者get方法上(建议)，如果写在field则破坏了面向对象的机制，写在get方法是public的，所有一般写在get方法上
 
 ## 核心开发接口
