@@ -346,7 +346,7 @@ ipv4()  |  验证ipv4地址
 - 方法的定义
 
   ```javascript
-  // value: 当前元素的值 element: 当前元素
+  // value: 当前元素的值 element: 当前元素 (this.optional(element) 表示只有此元素输入值才校验)
   $.validator.addMethod("domain", function(value, element) {
     return this.optional(element) || /^http:\/\/www.aezo.cn\//.test(value);
   }, "链接请以本网站地址http://www.aezo.cn/开头");
@@ -363,6 +363,13 @@ ipv4()  |  验证ipv4地址
     }
     return flag;
   }, $.validator.format("请正确输入 {0} + {1} 的值"));
+
+  // params传递的额外参数
+  $.validator.addMethod("notice", function(value, element, params) {
+    var flag = false;
+    params[0] = "错误提示";
+    return flag;
+  }, "{0}");
   ```
 
 - 方法的调用

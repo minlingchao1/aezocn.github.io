@@ -117,7 +117,7 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
 ### 操作相关
 
 1. 系统
-    - `lsnrctl start` 启动监听程序。`lsnrctl status` 查看服务状态
+    - `lsnrctl start` 启动监听程序(shell命令行运行)。`lsnrctl status` 查看服务状态
     - `sqlplus /nolog` 以nolog身份登录，进入sql命令行
     - `startup;` 正常启动（1启动实例，2打开控制文件，3打开数据文件）
     - `shutdown immediate` 大多数情况下使用。迫使每个用户执行完当前SQL语句后断开连接
@@ -206,6 +206,7 @@ oracle和mysql不同，此处的创建表空间相当于mysql的创建数据库�
 1. 常用技巧
     - 常看日志文件目录 `show parameter background_dump_dest`
     - 在ORACLE 11g 以及ORACLE 12c中，告警日志文件的位置有了变化。主要是因为引入了ADR(Automatic Diagnostic Repository:一个存放数据库诊断日志、跟踪文件的目录)，关于ADR对应的目录位置可以通过查看v$diag_info系统视图。`select * from v$diag_info;`
+    - `alert_orcl.log` 该目录下的日志文件
     - 在日志文件目录列举文件：`ll -rt *.trc`
         - `*.trc`：Sql Trace Collection file，`*.trm`：Trace map (.trm) file.Trace files(.trc) are sometimes accompanied by corresponding trace map (.trm) files, which contain structural information about trace files and are used for searching and navigation.（**主要看*.trc文件**）
         - 如：`dbcloud_cjq0_22515.trc` dbcloud为实例名，cjq0_22515为自动生成的索引
